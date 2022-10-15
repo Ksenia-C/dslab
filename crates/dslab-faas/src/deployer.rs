@@ -6,7 +6,7 @@ use crate::host::Host;
 
 /// IdleDeployer chooses an invoker to deploy new idle container on. Used for prewarm.
 pub trait IdleDeployer {
-    fn deploy(&mut self, app: &Application, hosts: &Vec<Rc<RefCell<Host>>>) -> Option<usize>;
+    fn deploy(&mut self, app: &Application, hosts: &[Rc<RefCell<Host>>]) -> Option<usize>;
 
     fn get_name(&self) -> String {
         "STUB DEPLOYER NAME".to_string()
@@ -17,7 +17,7 @@ pub trait IdleDeployer {
 pub struct BasicDeployer {}
 
 impl IdleDeployer for BasicDeployer {
-    fn deploy(&mut self, app: &Application, hosts: &Vec<Rc<RefCell<Host>>>) -> Option<usize> {
+    fn deploy(&mut self, app: &Application, hosts: &[Rc<RefCell<Host>>]) -> Option<usize> {
         for (i, host) in hosts.iter().enumerate() {
             if host.borrow().can_allocate(app.get_resources()) {
                 return Some(i);
