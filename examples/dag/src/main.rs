@@ -182,6 +182,26 @@ fn montage(args: &Args) {
     );
 }
 
+fn test_cpp(args: &Args) {
+    run_simulation(
+        args,
+        DAG::from_dot("/home/ksenia/dslab/examples/dag/dags/daggen_10_0.50_0.90_0.50_2_1e+06_1e+09_1.00_0.dot"),
+        "resources/cluster2.yaml",
+        "networks/network3.yaml",
+        "traces/trace_new_graph.json",
+    );
+}
+
+fn test_py(args: &Args) {
+    run_simulation(
+        args,
+        DAG::from_wfcommons("dags/seismology-workflow.json", 1.0e11),
+        "resources/cluster2.yaml",
+        "networks/network3.yaml",
+        "traces/trace_seismology-workflow.json",
+    );
+}
+
 fn diamond(args: &Args) {
     run_simulation(
         args,
@@ -241,6 +261,8 @@ fn main() {
     experiments.insert("epigenomics".to_string(), epigenomics); // dax
     experiments.insert("montage".to_string(), montage); // dot
     experiments.insert("diamond".to_string(), diamond); // yaml
+    experiments.insert("cpp_daggen".to_string(), test_cpp); // daggen dot format
+    experiments.insert("py_wfchef_json".to_string(), test_py); // wfchef dot format
     experiments.insert("reuse_files".to_string(), reuse_files);
 
     if args.run_one.is_some() {

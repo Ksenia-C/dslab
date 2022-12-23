@@ -1,0 +1,23 @@
+[package]
+name = "dag-test"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+druid = "0.7.0"
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+dslab-dag = { path = "../../crates/dslab-dag" }
+dslab-compute = { path = "../../crates/dslab-compute" }
+dslab-network = { path = "../../crates/dslab-network" }
+clap = { version = "3.0.14", features = ["cargo", "derive"] }
+sugars = "3.0.0"
+rand = "0.8.4"
+rand_pcg = "0.3.1"
+env_logger = "0.9.0"
+csv = "1.1"
+plotters = "0.3"
+fast-float = "0.2"
+execute = "0.2.10"

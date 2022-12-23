@@ -1,0 +1,17 @@
+resources:
+- cores: 1
+  memory: 1152921504606846976
+  name: '0'
+  speed: 2
+- cores: 1
+  memory: 1152921504606846976
+  name: '1'
+  speed: 4
+- cores: 1
+  memory: 1152921504606846976
+  name: '2'
+  speed: 4
+- cores: 1
+  memory: 1152921504606846976
+  name: '3'
+  speed: 1

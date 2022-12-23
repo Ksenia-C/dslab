@@ -1,0 +1,153 @@
+inputs:
+  - name: 6-input
+    size: 0
+  - name: 1-input
+    size: 0
+tasks:
+- name: '0'
+  flops: 379940352
+  memory: 24
+  min_cores: 1
+  max_cores: 2
+  inputs:
+  - 0
+  - 4
+  - 14
+  outputs:
+    - name: 2
+      size: 945242
+    - name: 18
+      size: 739129
+- name: '1'
+  flops: 619515078
+  memory: 47
+  min_cores: 1
+  max_cores: 2
+  inputs:
+    - 1-input
+  outputs:
+    - name: 4
+      size: 434612
+    - name: 6
+      size: 110741
+    - name: 9
+      size: 485535
+    - name: 11
+      size: 422736
+    - name: 15
+      size: 454103
+
+- name: '2'
+  flops: 65400762
+  memory: 122
+  min_cores: 1
+  max_cores: 1
+  inputs:
+    - 15
+  outputs:
+    - name: 14
+      size: 25102
+- name: '3'
+  flops: 418984595
+  memory: 56
+  min_cores: 1
+  max_cores: 3
+  inputs:
+  - 1
+  - 5
+  - 16
+  - 18
+  outputs:
+    - name: output_3
+      size: 0
+- name: '4'
+  flops: 854926396
+  memory: 118
+  min_cores: 1
+  max_cores: 2
+  inputs:
+  - 1
+  - 5
+  - 7
+  - 10
+  - 12
+  - 13
+  - 19
+  outputs:
+    - name: output_4
+      size: 0
+- name: '5'
+  flops: 626537934
+  memory: 37
+  min_cores: 1
+  max_cores: 3
+  inputs:
+  - 15
+  outputs:
+    - name: 8
+      size: 891347
+    - name: 12
+      size: 278515
+    - name: 19
+      size: 485535
+- name: '6'
+  flops: 245088072
+  memory: 67
+  min_cores: 1
+  max_cores: 3
+  inputs: 
+    - 6-input
+  outputs:
+    - name: 1
+      size: 744997
+    - name: 10
+      size: 678512
+- name: '7'
+  flops: 604537738
+  memory: 110
+  min_cores: 1
+  max_cores: 3
+  inputs:
+  - 8
+  - 9
+  - 10
+  - 11
+  - 13
+  - 14
+  - 19
+  outputs:
+    - name: 3
+      size: 102304
+    - name: 5
+      size: 842284
+    - name: 17
+      size: 329868
+- name: '8'
+  flops: 832889372
+  memory: 122
+  min_cores: 1
+  max_cores: 1
+  inputs:
+  - 3
+  - 6
+  - 16
+  - 17
+  outputs:
+    - name: output_8
+      size: 0
+- name: '9'
+  flops: 836083456
+  memory: 116
+  min_cores: 1
+  max_cores: 2
+  inputs:
+  - 11
+  outputs:
+  - name: 0
+    size: 497172
+  - name: 7
+    size: 85464
+  - name: 13
+    size: 494888
+  - name: 16
+    size: 544713

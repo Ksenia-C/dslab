@@ -1,0 +1,152 @@
+inputs:
+- name: 5_input
+  size: 0
+- name: 8_input
+  size: 0
+tasks:
+- flops: 60055856
+  inputs:
+  - 13
+  max_cores: 1
+  memory: 0
+  min_cores: 1
+  name: '0'
+  outputs:
+  - name: '1'
+    size: 726
+  - name: '3'
+    size: 119
+  - name: '7'
+    size: 241
+- flops: 370855648
+  inputs:
+  - 0
+  - 10
+  - 14
+  - 19
+  max_cores: 1
+  memory: 0
+  min_cores: 1
+  name: '1'
+  outputs:
+  - name: 1_output
+    size: 0
+- flops: 677346678
+  inputs:
+  - 4
+  - 7
+  - 17
+  - 18
+  max_cores: 1
+  memory: 0
+  min_cores: 1
+  name: '2'
+  outputs:
+  - name: '6'
+    size: 822
+- flops: 548604948
+  inputs:
+  - 8
+  - 12
+  - 14
+  - 15
+  max_cores: 1
+  memory: 0
+  min_cores: 1
+  name: '3'
+  outputs:
+  - name: '4'
+    size: 316
+  - name: '11'
+    size: 838
+  - name: '17'
+    size: 685
+- flops: 20514026
+  inputs:
+  - 1
+  - 2
+  - 7
+  - 9
+  - 12
+  - 13
+  - 16
+  max_cores: 1
+  memory: 0
+  min_cores: 1
+  name: '4'
+  outputs:
+  - name: 4_output
+    size: 0
+- flops: 225934795
+  inputs: []
+  max_cores: 1
+  memory: 0
+  min_cores: 1
+  name: '5'
+  outputs:
+  - name: '0'
+    size: 970
+  - name: '12'
+    size: 671
+  - name: '13'
+    size: 998
+  - name: '14'
+    size: 566
+  - name: '15'
+    size: 896
+  - name: '18'
+    size: 69
+- flops: 8386399
+  inputs:
+  - 2
+  - 3
+  - 5
+  - 6
+  - 11
+  - 16
+  max_cores: 1
+  memory: 0
+  min_cores: 1
+  name: '6'
+  outputs:
+  - name: 6_output
+    size: 0
+- flops: 635910985
+  inputs:
+  - 0
+  max_cores: 1
+  memory: 0
+  min_cores: 1
+  name: '7'
+  outputs:
+  - name: '5'
+    size: 686
+  - name: '9'
+    size: 603
+  - name: '10'
+    size: 268
+  - name: '19'
+    size: 528
+- flops: 111620547
+  inputs: []
+  max_cores: 1
+  memory: 0
+  min_cores: 1
+  name: '8'
+  outputs:
+  - name: '2'
+    size: 609
+  - name: '8'
+    size: 536
+  - name: '16'
+    size: 702
+- flops: 250240150
+  inputs:
+  - 10
+  max_cores: 1
+  memory: 0
+  min_cores: 1
+  name: '9'
+  outputs:
+  - name: 9_output
+    size: 0
