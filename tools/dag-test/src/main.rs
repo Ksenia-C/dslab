@@ -1,5 +1,5 @@
-use std::process::{Command, Stdio};
 use execute::Execute;
+use std::process::{Command, Stdio};
 
 use plotters::prelude::*;
 use std::cell::RefCell;
@@ -101,9 +101,9 @@ fn run_scheduler(
     // );
     // let vec_tmp: Vec<&str> = file_name.split('.').collect();
     // println!("{:?}", vec_tmp);
-    
+
     // let clean_file = vec_tmp.get(0).unwrap();
-    let clean_file = &file_name[0..file_name.len()-4];
+    let clean_file = &file_name[0..file_name.len() - 4];
     runner.borrow().validate_completed();
     runner
         .borrow()
@@ -114,7 +114,12 @@ fn run_scheduler(
     sim.time()
 }
 
-const NUMBER_OF_EXPERIMENT: i32 = 10;
+const NUMBER_OF_EXPERIMENT: i32 = 20;
+const  LOW: f64 = 50.0;
+const HIGH: f64 = 20000.0;
+// const  LOW: f64 = 50.0;
+// const HIGH: f64 = 1000.0;
+
 
 fn gen_graphs() -> Vec<String> {
     const FFMPEG_PATH: &str = "/usr/bin/python";
@@ -122,13 +127,12 @@ fn gen_graphs() -> Vec<String> {
     let path = "traces1/";
     fs::remove_dir_all(path).unwrap();
     fs::create_dir(path).unwrap();
-    
+
     let path = "default/";
     fs::remove_dir_all(path).unwrap();
     fs::create_dir(path).unwrap();
     let n_start = 20;
 
-    
     let mut result: Vec<String> = Vec::new();
     for i in 0..NUMBER_OF_EXPERIMENT {
         let mut command = Command::new(FFMPEG_PATH);
@@ -136,8 +140,9 @@ fn gen_graphs() -> Vec<String> {
         command.arg(path);
         command.arg("--fat");
         command.arg("0.2");
-        command.arg("--regular");
-        command.arg((i as f32 / NUMBER_OF_EXPERIMENT as f32).to_string());
+        command.arg("--ccr");
+        
+        command.arg(((i as f64 / NUMBER_OF_EXPERIMENT as f64 * (HIGH - LOW) + LOW) as i64).to_string());
         command.arg("-n");
         // command.arg((n_start + (n_start as f32 * i as f32 / NUMBER_OF_EXPERIMENT as f32).floor() as i32).to_string());
         command.arg(n_start.to_string());
@@ -157,7 +162,7 @@ fn gen_graphs() -> Vec<String> {
             }
         } else {
             eprintln!("Interrupted!");
-        } 
+        }
         for gen_line in String::from_utf8(output.stdout).unwrap().split('\n') {
             let filename = gen_line.split(' ').skip(1).next().unwrap_or(" ");
             if filename == " " {
@@ -167,7 +172,6 @@ fn gen_graphs() -> Vec<String> {
         }
     }
     return result;
-   
 }
 
 fn main() {
@@ -204,27 +208,25 @@ fn main() {
 
     // drawing as graphic
     let picture_name = format!("{}.png", args.scheduler_basic);
-    let root_area = BitMapBackend::new(&picture_name, (600, 700))
-    .into_drawing_area();
+    let root_area = BitMapBackend::new(&picture_name, (600, 700)).into_drawing_area();
     root_area.fill(&WHITE).unwrap();
 
     let mut ctx = ChartBuilder::on(&root_area)
         .set_label_area_size(LabelAreaPosition::Left, 40)
         .set_label_area_size(LabelAreaPosition::Bottom, 40)
         .caption("Scatter Demo", ("sans-serif", 40))
-        .build_cartesian_2d(0.0..1.0, 0.0..max_makespan_value)
+        .build_cartesian_2d(LOW..HIGH, 0.0..max_makespan_value.ln())
         .unwrap();
 
     ctx.configure_mesh().draw().unwrap();
 
-
     ctx.draw_series(
         LineSeries::new(
-        (0..).zip(makespanes_values.iter()).map(|(idx, makespan)| {
-            (idx as f64 / NUMBER_OF_EXPERIMENT as f64, *makespan)
-        }), // The data iter
-        &RED // Make the series opac
-      ) // Make a brighter border
+            (0..)
+                .zip(makespanes_values.iter())
+                .map(|(idx, makespan)| (idx as f64 / NUMBER_OF_EXPERIMENT as f64 * (HIGH - LOW) + LOW, (*makespan).ln())), // The data iter
+            &RED, // Make the series opac
+        ), // Make a brighter border
     )
     .unwrap();
 }

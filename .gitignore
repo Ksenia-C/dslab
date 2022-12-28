@@ -15,3 +15,7 @@ examples/cloud-plugin-traces/Huawei-East-1.csv
 
 # Maven
 examples-other/vetand_cloudsim_benchmark/target
+
+# traces
+tools/dag-test/traces1/*
+tools/dag-test/default/*
