@@ -147,6 +147,7 @@ def compute_weights(graph, mindata, maxdata, ccr, scatter_gather=False):
     ccr = ccr / 1000.0
     for node in graph:
         if node in ["root", "end"]:
+            graph._node[node]["weight"] = 1.0
             continue
         input_size = random.uniform(mindata, maxdata)
         num_parents = len(graph.pred[node].values())

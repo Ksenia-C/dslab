@@ -19,3 +19,5 @@ examples-other/vetand_cloudsim_benchmark/target
 # traces
 tools/dag-test/traces1/*
 tools/dag-test/default/*
+
+tools/dag_gen/gen_multithread_program_tmp/

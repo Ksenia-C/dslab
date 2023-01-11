@@ -12,13 +12,17 @@ class GraphParams:
         self.ccr = ccr
 
     def gen_sub_graph(self, graph_components_dir: pathlib.Path, name: str):
-        subprocess.call([
-            "/usr/bin/python", "dag_gen.py", graph_components_dir.name,
-            "--fat", str(self.fat),
-            "--density", str(self.density),
-            "--ccr", str(self.ccr),
-            "--count", str(self.n)
-        ])
+        try:
+            subprocess.check_output([
+                "/usr/bin/python", "/home/ksenia/dslab/tools/dag_gen/dag_gen.py", graph_components_dir,
+                "--fat", str(self.fat),
+                "--density", str(self.density),
+                "--ccr", str(self.ccr),
+                "--count", str(self.n)
+            ])
+        except subprocess.CalledProcessError as e:
+            print(e.output)
+
 
         for file in graph_components_dir.iterdir():
             if file.name.startswith("daggen"):
@@ -134,6 +138,8 @@ class SubGraph(object):
                 if node == destin:
                     # consider attr only in format of [size="1.0"];
                     result += float(attr.split('=')[1][1:-3])
+        if result == 0:
+            return random.uniform(1, 100)
         return result
 
     @staticmethod
@@ -263,7 +269,7 @@ class Graph:
             file.write("digraph G {\n")
             for subgraph in self.subgraphs:
                 for task_name, atrib in subgraph.nodes.items():
-                    file.write(f"{task_name} {atrib}")
+                    file.write(f"{task_name} {atrib}\n")
                 for source, valie in subgraph.adjacency_list.items():
                     for destri, atttr in valie:
                         file.write(f"{source} -> {destri} {atttr}\n")

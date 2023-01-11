@@ -1,11 +1,12 @@
 use execute::Execute;
-use std::process::{Command, Stdio};
-
 use plotters::prelude::*;
 use std::cell::RefCell;
+use std::cmp;
 use std::io::Write;
+use std::process::{Command, Stdio};
 use std::rc::Rc;
 use std::time::Instant;
+use std::{thread, time};
 
 use clap::Parser;
 use std::fs;
@@ -55,9 +56,9 @@ fn run_scheduler(
             ))
         }
         "peft" => {
-            rc!(refcell!(
-                PeftScheduler::new().with_data_transfer_strategy(DataTransferStrategy::Eager)
-            ))
+            rc!(refcell!(PeftScheduler::new()
+                .with_data_transfer_strategy(DataTransferStrategy::Eager)
+                .with_original_network_estimation()))
         }
         "lookahead" => {
             rc!(refcell!(
@@ -76,12 +77,14 @@ fn run_scheduler(
     };
     let mut sim = DagSimulation::new(123, network_model, scheduler, Config { data_transfer_mode });
 
-    let dag_path = format!("{}/{}", test_folder, file_name);
+    let dag_path = format!("{}.dot", file_name);
 
     let dag = if dag_path.as_str().ends_with(".yaml") {
         DAG::from_yaml(dag_path.as_str())
-    } else {
+    } else if dag_path.as_str().ends_with(".dot") {
         DAG::from_dot(dag_path.as_str())
+    } else {
+        DAG::from_wfcommons(dag_path.as_str(), 1.0)
     };
 
     let resource_path = format!("{}_resources/ordinary.yaml", test_folder);
@@ -90,9 +93,8 @@ fn run_scheduler(
     let runner = sim.init(dag);
     runner.borrow_mut().enable_trace_log(true);
 
-    let t = Instant::now();
     sim.step_until_no_events();
-    println!("Makespan: {:.5}", sim.time());
+    println!("Makespan {}: {:.5}", schedule_name, sim.time());
     // println!(
     //     "Processed {} events in {:.2?} ({:.0} events/sec)",
     //     sim.event_count(),
@@ -103,7 +105,7 @@ fn run_scheduler(
     // println!("{:?}", vec_tmp);
 
     // let clean_file = vec_tmp.get(0).unwrap();
-    let clean_file = &file_name[0..file_name.len() - 4];
+    let clean_file = &file_name[8..file_name.len()];
     runner.borrow().validate_completed();
     runner
         .borrow()
@@ -114,12 +116,11 @@ fn run_scheduler(
     sim.time()
 }
 
-const NUMBER_OF_EXPERIMENT: i32 = 20;
-const  LOW: f64 = 50.0;
+const NUMBER_OF_EXPERIMENT: i32 = 10;
+const LOW: f64 = 50.0;
 const HIGH: f64 = 20000.0;
 // const  LOW: f64 = 50.0;
 // const HIGH: f64 = 1000.0;
-
 
 fn gen_graphs() -> Vec<String> {
     const FFMPEG_PATH: &str = "/usr/bin/python";
@@ -131,21 +132,16 @@ fn gen_graphs() -> Vec<String> {
     let path = "default/";
     fs::remove_dir_all(path).unwrap();
     fs::create_dir(path).unwrap();
-    let n_start = 20;
+    let n_start = 24;
 
     let mut result: Vec<String> = Vec::new();
     for i in 0..NUMBER_OF_EXPERIMENT {
         let mut command = Command::new(FFMPEG_PATH);
-        command.arg("/home/ksenia/dslab/tools/dag_gen/dag_gen.py");
-        command.arg(path);
-        command.arg("--fat");
-        command.arg("0.2");
-        command.arg("--ccr");
-        
-        command.arg(((i as f64 / NUMBER_OF_EXPERIMENT as f64 * (HIGH - LOW) + LOW) as i64).to_string());
-        command.arg("-n");
-        // command.arg((n_start + (n_start as f32 * i as f32 / NUMBER_OF_EXPERIMENT as f32).floor() as i32).to_string());
-        command.arg(n_start.to_string());
+        command.arg("/home/ksenia/dslab/tools/dag_gen/gen_fix_size_paralel.py");
+        command.arg("--file_name");
+        command.arg(format!("{}workflow_{}.dot", path, i));
+        command.arg("--count");
+        command.arg((n_start + 2 * i).to_string());
         command.stdout(Stdio::piped());
         command.stderr(Stdio::piped());
 
@@ -163,15 +159,35 @@ fn gen_graphs() -> Vec<String> {
         } else {
             eprintln!("Interrupted!");
         }
-        for gen_line in String::from_utf8(output.stdout).unwrap().split('\n') {
-            let filename = gen_line.split(' ').skip(1).next().unwrap_or(" ");
-            if filename == " " {
-                continue;
-            }
-            result.push(filename.to_string());
-        }
+        println!("{}", String::from_utf8(output.stdout).unwrap());
+        // println!("{}", String::from_utf8(output.stdout).unwrap());
+        // for gen_line in String::from_utf8(output.stdout).unwrap().split('\n') {
+        //     let filename = gen_line.split(' ').skip(1).next().unwrap_or(" ");
+        //     if filename == " " {
+        //         continue;
+        //     }
+        result.push(format!("{}workflow_{}", path, i).to_string());
+
+        // }
     }
     return result;
+}
+
+struct SchedultedTask {
+    pub name: String,
+    pub makespans: Vec<f64>,
+}
+
+impl SchedultedTask {
+    pub fn new(name: &str) -> SchedultedTask {
+        SchedultedTask {
+            name: String::from(name),
+            makespans: Vec::new(),
+        }
+    }
+    pub fn add_makespan(&mut self, new_span: f64) {
+        self.makespans.push(new_span);
+    }
 }
 
 fn main() {
@@ -188,23 +204,35 @@ fn main() {
     // let paths = fs::read_dir(args.test_folder.as_str()).unwrap();
 
     let mut max_makespan_value: f64 = 0.0;
-    let mut makespanes_values: Vec<f64> = Vec::new();
+    let mut min_makespan_value: f64 = -1.0;
+
+    let mut makespans: Vec<SchedultedTask> = Vec::new();
+    makespans.push(SchedultedTask::new("heft"));
+    makespans.push(SchedultedTask::new("lookahead"));
+    makespans.push(SchedultedTask::new("dls"));
+    makespans.push(SchedultedTask::new("peft"));
+
     for file_name in path_to_graphs {
-        // let file_name = path.unwrap().file_name().clone();
-        // println!("Process scehduler {}", args.scheduler_basic);
         println!("{:?}", file_name);
-        let time_basic = run_scheduler(
-            args.scheduler_basic.as_str(),
-            args.test_folder.as_str(),
-            file_name.as_str(),
-            network_model.clone(),
-            data_transfer_mode.clone(),
-        );
-        // println!("has markspace {}", time_basic);
-        makespanes_values.push(time_basic);
-        max_makespan_value = max_makespan_value.max(time_basic);
+        for scheduler in makespans.iter_mut() {
+            let time_basic = run_scheduler(
+                scheduler.name.as_str(),
+                args.test_folder.as_str(),
+                file_name.as_str(),
+                network_model.clone(),
+                data_transfer_mode.clone(),
+            );
+            scheduler.add_makespan(time_basic);
+            max_makespan_value = max_makespan_value.max(time_basic);
+            if min_makespan_value == -1.0 || min_makespan_value < time_basic {
+                min_makespan_value = time_basic;
+            }
+        }
+
         println!("====================");
     }
+    min_makespan_value = (1.0 as f64).max(min_makespan_value - 6.0);
+    max_makespan_value += 6.0;
 
     // drawing as graphic
     let picture_name = format!("{}.png", args.scheduler_basic);
@@ -214,19 +242,30 @@ fn main() {
     let mut ctx = ChartBuilder::on(&root_area)
         .set_label_area_size(LabelAreaPosition::Left, 40)
         .set_label_area_size(LabelAreaPosition::Bottom, 40)
-        .caption("Scatter Demo", ("sans-serif", 40))
-        .build_cartesian_2d(LOW..HIGH, 0.0..max_makespan_value.ln())
+        .caption("Makespans", ("sans-serif", 40))
+        .build_cartesian_2d(0..NUMBER_OF_EXPERIMENT, 0.0..max_makespan_value.ln())
         .unwrap();
 
     ctx.configure_mesh().draw().unwrap();
 
-    ctx.draw_series(
-        LineSeries::new(
-            (0..)
-                .zip(makespanes_values.iter())
-                .map(|(idx, makespan)| (idx as f64 / NUMBER_OF_EXPERIMENT as f64 * (HIGH - LOW) + LOW, (*makespan).ln())), // The data iter
-            &RED, // Make the series opac
-        ), // Make a brighter border
-    )
-    .unwrap();
+    let colors = [&RED, &BLUE, &GREEN, &BLACK];
+    for schedule in makespans.iter().enumerate() {
+        let color = colors[schedule.0];
+        ctx.draw_series(
+            LineSeries::new(
+                (0..)
+                    .zip(schedule.1.makespans.iter())
+                    .map(|(idx, makespan)| (idx, (*makespan).ln())), // The data iter
+                color, // Make the series opac
+            ), // Make a brighter border
+        )
+        .unwrap()
+        .label(schedule.1.name.as_str())
+        .legend(|(x, y)| PathElement::new(vec![(x, y), (x + 20, y)], color.stroke_width(3)));
+    }
+    ctx.configure_series_labels()
+        .border_style(&BLACK)
+        .background_style(&WHITE.mix(0.8))
+        .draw()
+        .unwrap();
 }
