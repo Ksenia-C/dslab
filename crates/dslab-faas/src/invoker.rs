@@ -1,3 +1,4 @@
+use std::boxed::Box;
 use std::cell::RefCell;
 use std::rc::Rc;
 
@@ -27,15 +28,20 @@ pub trait Invoker {
         cm: &mut ContainerManager,
         time: f64,
     ) -> InvocationStatus;
+
+    fn to_string(&self) -> String {
+        "STUB INVOKER NAME".to_string()
+    }
 }
 
+#[derive(Default)]
 pub struct BasicInvoker {
     queue: Vec<InvocationRequest>,
 }
 
 impl BasicInvoker {
     pub fn new() -> Self {
-        Self { queue: Vec::new() }
+        Default::default()
     }
 
     fn try_invoke(
@@ -70,7 +76,7 @@ impl BasicInvoker {
         if let Some((id, delay)) = cm.try_deploy(app, time) {
             return InvocationStatus::Cold((id, delay));
         }
-        return InvocationStatus::Rejected;
+        InvocationStatus::Rejected
     }
 }
 
@@ -102,5 +108,17 @@ impl Invoker for BasicInvoker {
             return InvocationStatus::Queued;
         }
         status
+    }
+
+    fn to_string(&self) -> String {
+        "BasicInvoker".to_string()
+    }
+}
+
+pub fn default_invoker_resolver(s: &str) -> Box<dyn Invoker> {
+    if s == "BasicInvoker" {
+        Box::new(BasicInvoker::new())
+    } else {
+        panic!("Can't resolve: {}", s);
     }
 }

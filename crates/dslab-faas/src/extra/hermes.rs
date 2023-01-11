@@ -1,27 +1,32 @@
 use std::cell::RefCell;
 use std::rc::Rc;
 
-use dslab_faas::function::Application;
-use dslab_faas::host::Host;
-use dslab_faas::scheduler::Scheduler;
-
-use crate::simple_schedulers::LeastLoadedScheduler;
+use crate::function::Application;
+use crate::host::Host;
+use crate::scheduler::LeastLoadedScheduler;
+use crate::scheduler::Scheduler;
 
 /// Refer to https://arxiv.org/abs/2111.07226
 pub struct HermesScheduler {
     high_load_fallback: LeastLoadedScheduler,
 }
 
-impl HermesScheduler {
-    pub fn new() -> Self {
+impl Default for HermesScheduler {
+    fn default() -> Self {
         Self {
             high_load_fallback: LeastLoadedScheduler::new(true),
         }
     }
 }
 
+impl HermesScheduler {
+    pub fn new() -> Self {
+        Default::default()
+    }
+}
+
 impl Scheduler for HermesScheduler {
-    fn select_host(&mut self, app: &Application, hosts: &Vec<Rc<RefCell<Host>>>) -> usize {
+    fn select_host(&mut self, app: &Application, hosts: &[Rc<RefCell<Host>>]) -> usize {
         let mut ans = 0;
         // 0 -> empty, no warm container
         // 1 -> empty, warm container
@@ -38,12 +43,10 @@ impl Scheduler for HermesScheduler {
                     } else {
                         curr_priority = 2;
                     }
+                } else if h.can_invoke(app, false) {
+                    curr_priority = 1;
                 } else {
-                    if h.can_invoke(app, false) {
-                        curr_priority = 1;
-                    } else {
-                        curr_priority = 0;
-                    }
+                    curr_priority = 0;
                 }
                 if curr_priority > priority {
                     priority = curr_priority;
@@ -55,5 +58,9 @@ impl Scheduler for HermesScheduler {
             return ans;
         }
         self.high_load_fallback.select_host(app, hosts)
+    }
+
+    fn to_string(&self) -> String {
+        "HermesScheduler".to_string()
     }
 }

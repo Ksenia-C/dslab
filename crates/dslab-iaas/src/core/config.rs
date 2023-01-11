@@ -1,5 +1,7 @@
 //! Simulation configuration.
 
+use std::collections::HashMap;
+
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, PartialEq, Serialize, Deserialize, Clone)]
@@ -30,6 +32,40 @@ pub struct SimulationConfigRaw {
     pub step_duration: Option<f64>,
     /// VM becomes failed after this timeout is reached
     pub vm_allocation_timeout: Option<f64>,
+    /// cloud physical hosts
+    pub hosts: Option<Vec<HostConfig>>,
+    /// cloud schedulers
+    pub schedulers: Option<Vec<SchedulerConfig>>,
+}
+
+/// Represents scheduler(s) configuration.
+#[derive(Debug, PartialEq, Serialize, Deserialize, Clone)]
+pub struct SchedulerConfig {
+    /// Scheduler name. Should be set if count = 1
+    pub name: Option<String>,
+    /// Scheduler name prefix. Full name is produced by appending instance number to the prefix.
+    /// Should be set if count > 1
+    pub name_prefix: Option<String>,
+    /// VM placement algorithm for this scheduler
+    pub algorithm: String,
+    /// number of such schedulers
+    pub count: Option<u32>,
+}
+
+/// Represents physical host(s) configuration.
+#[derive(Debug, PartialEq, Serialize, Deserialize, Clone)]
+pub struct HostConfig {
+    /// Host name. Should be set if count = 1
+    pub name: Option<String>,
+    /// Host name prefix. Full name is produced by appending instance number to the prefix.
+    /// Should be set if count > 1
+    pub name_prefix: Option<String>,
+    /// host CPU capacity
+    pub cpus: u32,
+    /// host memory capacity
+    pub memory: u64,
+    /// number of such hosts
+    pub count: Option<u32>,
 }
 
 /// Represents simulation configuration.
@@ -43,7 +79,7 @@ pub struct SimulationConfig {
     pub allocation_retry_period: f64,
     /// vm initialization duration
     pub vm_start_duration: f64,
-    // vm deallocation duration
+    /// vm deallocation duration
     pub vm_stop_duration: f64,
     /// pack VM by real resource consumption, not SLA
     pub allow_vm_overcommit: bool,
@@ -61,6 +97,10 @@ pub struct SimulationConfig {
     pub step_duration: f64,
     /// VM becomes failed after this timeout is reached
     pub vm_allocation_timeout: f64,
+    /// cloud physical hosts
+    pub hosts: Vec<HostConfig>,
+    /// cloud schedulers
+    pub schedulers: Vec<SchedulerConfig>,
 }
 
 impl SimulationConfig {
@@ -80,14 +120,17 @@ impl SimulationConfig {
             host_memory_capacity: 1.,
             step_duration: 500.,
             vm_allocation_timeout: 50.,
+            hosts: Vec::new(),
+            schedulers: Vec::new(),
         }
     }
 
     /// Creates simulation config by reading parameter values from .yaml file (uses default values if some parameters are absent).
     pub fn from_file(file_name: &str) -> Self {
-        let data: SimulationConfigRaw =
-            serde_yaml::from_str(&std::fs::read_to_string(file_name).expect(&format!("Can't read file {}", file_name)))
-                .expect(&format!("Can't parse YAML from file {}", file_name));
+        let data: SimulationConfigRaw = serde_yaml::from_str(
+            &std::fs::read_to_string(file_name).unwrap_or_else(|_| panic!("Can't read file {}", file_name)),
+        )
+        .unwrap_or_else(|_| panic!("Can't parse YAML from file {}", file_name));
         let default = SimulationConfig::new();
         Self {
             send_stats_period: data.send_stats_period.unwrap_or(default.send_stats_period),
@@ -103,6 +146,39 @@ impl SimulationConfig {
             host_memory_capacity: data.host_memory_capacity.unwrap_or(default.host_memory_capacity),
             step_duration: data.step_duration.unwrap_or(default.step_duration),
             vm_allocation_timeout: data.vm_allocation_timeout.unwrap_or(default.vm_allocation_timeout),
+            hosts: data.hosts.unwrap_or_default(),
+            schedulers: data.schedulers.unwrap_or_default(),
         }
     }
+}
+
+/// Parses config value string, which consists of two parts - name and options.
+/// Example: ConstLoadModel[load=0.8] parts are name ConstLoadModel and options string "load=0.8".
+pub fn parse_config_value(config_str: &str) -> (String, Option<String>) {
+    match config_str.split_once('[') {
+        Some((l, r)) => (l.to_string(), Some(r.to_string().replace(']', ""))),
+        None => (config_str.to_string(), None),
+    }
+}
+
+/// Parses options string from config value, returns map with option names and values.
+///
+/// # Examples
+///
+/// ```rust
+/// use dslab_iaas::core::config::parse_options;
+///
+/// let options = parse_options("option1=0.8,option2=something");
+/// assert_eq!(options.get("option1").unwrap(), "0.8");
+/// assert_eq!(options.get("option2").unwrap(), "something");
+/// assert_eq!(options.get("option3"), None);
+/// ```
+pub fn parse_options(options_str: &str) -> HashMap<String, String> {
+    let mut options = HashMap::new();
+    for option_str in options_str.split(',') {
+        if let Some((name, value)) = option_str.split_once('=') {
+            options.insert(name.to_string(), value.to_string());
+        }
+    }
+    options
 }

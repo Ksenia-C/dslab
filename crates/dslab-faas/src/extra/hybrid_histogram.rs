@@ -1,15 +1,15 @@
 /// This file contains the implementation of hybrid histogram policy from
 /// https://www.usenix.org/conference/atc20/presentation/shahrad
+use std::collections::hash_map::Entry;
 use std::collections::HashMap;
 
 use rand::prelude::*;
 
-use dslab_faas::coldstart::ColdStartPolicy;
-use dslab_faas::container::Container;
-use dslab_faas::function::Application;
-use dslab_faas::invocation::Invocation;
-
-use crate::arima_extra::{arima_forecast, autofit};
+use crate::coldstart::ColdStartPolicy;
+use crate::container::Container;
+use crate::extra::arima_extra::{arima_forecast, autofit};
+use crate::function::Application;
+use crate::invocation::Invocation;
 
 const HEAD: f64 = 0.05;
 const TAIL: f64 = 0.99;
@@ -47,11 +47,11 @@ impl ApplicationData {
         let (coeff, ar_order, _) = autofit(&self.raw, 1).unwrap();
         let mut ar = Vec::new();
         let mut ma = Vec::new();
-        for i in 1..ar_order + 1 {
-            ar.push(coeff[i]);
+        for c in &coeff[1..ar_order + 1] {
+            ar.push(*c);
         }
-        for i in ar_order + 1..coeff.len() {
-            ma.push(coeff[i]);
+        for c in &coeff[ar_order + 1..] {
+            ma.push(*c);
         }
         arima_forecast(
             self.raw.as_slice(),
@@ -125,7 +125,7 @@ pub struct HybridHistogramPolicy {
 enum Pattern {
     Uncertain,
     Certain,
-    OOB,
+    OutOfBounds,
 }
 
 impl HybridHistogramPolicy {
@@ -144,12 +144,31 @@ impl HybridHistogramPolicy {
         }
     }
 
+    pub fn from_options_map(options: &HashMap<String, String>) -> Self {
+        let range = options.get("range").unwrap().parse::<f64>().unwrap();
+        let bin_len = options
+            .get("bin_len")
+            .map(|s| s.parse::<f64>().unwrap())
+            .unwrap_or(60.0);
+        let cv_thr = options.get("cv_thr").map(|s| s.parse::<f64>().unwrap()).unwrap_or(2.0);
+        let oob_thr = options.get("oob_thr").map(|s| s.parse::<f64>().unwrap()).unwrap_or(0.5);
+        let arima_margin = options
+            .get("arima_margin")
+            .map(|s| s.parse::<f64>().unwrap())
+            .unwrap_or(0.15);
+        let hist_margin = options
+            .get("hist_margin")
+            .map(|s| s.parse::<f64>().unwrap())
+            .unwrap_or(0.1);
+        Self::new(range, bin_len, cv_thr, oob_thr, arima_margin, hist_margin)
+    }
+
     fn describe_pattern(&mut self, app_id: u64) -> Pattern {
         let cv_thr = self.cv_thr;
         let oob_thr = self.oob_thr;
         let data = self.get_app(app_id);
         if data.oob_rate() >= oob_thr {
-            Pattern::OOB
+            Pattern::OutOfBounds
         } else if data.cv < cv_thr {
             Pattern::Uncertain
         } else {
@@ -158,15 +177,15 @@ impl HybridHistogramPolicy {
     }
 
     fn get_app(&mut self, id: u64) -> &ApplicationData {
-        if !self.data.contains_key(&id) {
-            self.data.insert(id, ApplicationData::new(self.n_bins, self.bin_len));
+        if let Entry::Vacant(e) = self.data.entry(id) {
+            e.insert(ApplicationData::new(self.n_bins, self.bin_len));
         }
         self.data.get(&id).unwrap()
     }
 
     fn get_app_mut(&mut self, id: u64) -> &mut ApplicationData {
-        if !self.data.contains_key(&id) {
-            self.data.insert(id, ApplicationData::new(self.n_bins, self.bin_len));
+        if let Entry::Vacant(e) = self.data.entry(id) {
+            e.insert(ApplicationData::new(self.n_bins, self.bin_len));
         }
         self.data.get_mut(&id).unwrap()
     }
@@ -180,7 +199,7 @@ impl ColdStartPolicy for HybridHistogramPolicy {
                 let tail = 1 + self.get_app(container.app_id).get_tail();
                 (tail as f64) * self.bin_len * (1. + self.hist_margin)
             }
-            Pattern::OOB => self.get_app(container.app_id).arima() * self.arima_margin * 2.,
+            Pattern::OutOfBounds => self.get_app(container.app_id).arima() * self.arima_margin * 2.,
         }
     }
 
@@ -191,7 +210,7 @@ impl ColdStartPolicy for HybridHistogramPolicy {
                 let head = self.get_app(app.id).get_head();
                 (head as f64) * self.bin_len * (1. - self.hist_margin)
             }
-            Pattern::OOB => self.get_app(app.id).arima() * (1. - self.arima_margin),
+            Pattern::OutOfBounds => self.get_app(app.id).arima() * (1. - self.arima_margin),
         }
     }
 
@@ -202,5 +221,9 @@ impl ColdStartPolicy for HybridHistogramPolicy {
             self.get_app_mut(app.id).update(it);
         }
         self.last.insert(fn_id, invocation.finished.unwrap());
+    }
+
+    fn to_string(&self) -> String {
+        format!("HybridHistogramPolicy[range={:.2},bin_len={:.2},cv_thr={:.2},oob_thr={:.2},arima_margin={:.2},hist_margin={:.2}]", self.range, self.bin_len, self.cv_thr, self.oob_thr, self.arima_margin, self.hist_margin)
     }
 }

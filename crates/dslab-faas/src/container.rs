@@ -138,7 +138,7 @@ impl ContainerManager {
     }
 
     fn deploy_container(&mut self, app: &Application, time: f64) -> u64 {
-        let cont_id = self.container_counter.next();
+        let cont_id = self.container_counter.increment();
         let container = Container {
             status: ContainerStatus::Deploying,
             id: cont_id,
@@ -193,7 +193,7 @@ impl<'a> Iterator for PossibleContainerIterator<'a> {
     type Item = &'a Container;
     fn next(&mut self) -> Option<Self::Item> {
         if let Some(inner) = self.inner.as_mut() {
-            while let Some(id) = inner.next() {
+            for id in inner.by_ref() {
                 let c = self.containers.get(id).unwrap();
                 if c.status != ContainerStatus::Deploying && c.invocations.len() < self.limit {
                     return Some(c);

@@ -17,8 +17,8 @@ pub struct Context {
 }
 
 impl Context {
-    pub fn new(proc_name: String, sim_ctx: Rc<RefCell<SimulationContext>>) -> Self {
-        let time = sim_ctx.borrow().time();
+    pub fn new(proc_name: String, sim_ctx: Rc<RefCell<SimulationContext>>, clock_skew: f64) -> Self {
+        let time = sim_ctx.borrow().time() + clock_skew;
         Self {
             proc_name,
             time,
@@ -38,9 +38,9 @@ impl Context {
     pub fn send(&mut self, msg: Message, dest: String) {
         t!("{:>9.3} {:>10} --> {:<10} {:?}", self.time, self.proc_name, dest, msg);
         self.actions.push(ProcessEvent::MessageSent {
-            msg: msg.clone(),
+            msg,
             src: self.proc_name.clone(),
-            dest: dest.clone(),
+            dest,
         });
     }
 
@@ -49,8 +49,8 @@ impl Context {
             "{:>9.3} {:>10} >>> {:<10} {:?}",
             self.time, self.proc_name, "local", msg
         )
-        .cyan());
-        self.actions.push(ProcessEvent::LocalMessageSent { msg: msg.clone() });
+        .green());
+        self.actions.push(ProcessEvent::LocalMessageSent { msg });
     }
 
     pub fn set_timer(&mut self, name: &str, delay: f64) {

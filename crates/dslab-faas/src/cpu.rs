@@ -94,8 +94,7 @@ impl ProgressComputer {
     fn remove_invocation(&mut self, id: u64) -> f64 {
         let it = self.work_map.remove(&id).unwrap();
         self.work_tree.remove(&it);
-        let delta = it.finish - self.work_total;
-        delta
+        it.finish - self.work_total
     }
 
     fn insert_invocation(&mut self, id: u64, remain: f64) {
@@ -146,7 +145,7 @@ impl ProgressComputer {
         self.end_event = None;
         self.shift_time(time);
         self.remove_invocation(invocation.id);
-        if container.invocations.len() > 0 {
+        if !container.invocations.is_empty() {
             let cnt = container.invocations.len() as f64;
             for i in container.invocations.iter().copied() {
                 let remain = self.remove_invocation(i);

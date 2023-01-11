@@ -1,8 +1,8 @@
 use std::collections::{BTreeSet, HashMap};
 
 use dslab_core::context::SimulationContext;
+use dslab_core::log_warn;
 use dslab_core::Id;
-use dslab_core::{log_info, log_warn};
 
 use crate::dag::DAG;
 use crate::data_item::{DataTransferMode, DataTransferStrategy};
@@ -10,11 +10,6 @@ use crate::runner::Config;
 use crate::scheduler::{Action, Scheduler, TimeSpan};
 use crate::schedulers::common::*;
 use crate::system::System;
-use crate::task::*;
-
-pub struct LookaheadScheduler {
-    data_transfer_strategy: DataTransferStrategy,
-}
 
 impl LookaheadScheduler {
     pub fn new() -> Self {
@@ -158,6 +153,19 @@ impl LookaheadScheduler {
                     }
                     task_locations.insert(child, resources[resource].id);
                     to_undo.push((resource, cores, ScheduledTask::new(start, finish, child)));
+
+                    let finish = finish
+                        + dag
+                            .get_task(child)
+                            .outputs
+                            .iter()
+                            .filter(|f| dag.get_outputs().contains(f))
+                            .map(|&f| {
+                                dag.get_data_item(f).size as f64 / network.bandwidth(resources[resource].id, ctx.id())
+                            })
+                            .max_by(|a, b| a.total_cmp(&b))
+                            .unwrap_or(0.);
+
                     if finish > makespan {
                         makespan = finish;
                     }
@@ -207,12 +215,6 @@ impl LookaheadScheduler {
             task_locations.insert(task_id, resources[best_resource].id);
         }
 
-        log_info!(
-            ctx,
-            "expected makespan: {:.3}",
-            calc_makespan(&scheduled_tasks, dag, resources, network, ctx)
-        );
-
         result.sort_by(|a, b| a.0.total_cmp(&b.0));
         result.into_iter().map(|(_, b)| b).collect()
     }
@@ -236,14 +238,7 @@ impl Scheduler for LookaheadScheduler {
         self.schedule(dag, system, config, ctx)
     }
 
-    fn on_task_state_changed(
-        &mut self,
-        _task: usize,
-        _task_state: TaskState,
-        _dag: &DAG,
-        _system: System,
-        _ctx: &SimulationContext,
-    ) -> Vec<Action> {
-        Vec::new()
+    fn is_static(&self) -> bool {
+        true
     }
 }
