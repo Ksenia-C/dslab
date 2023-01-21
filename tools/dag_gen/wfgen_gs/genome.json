@@ -1,0 +1,2837 @@
+{
+    "name": "Genome-synthetic-instance",
+    "description": "Instance generated with WfCommons - https://wfcommons.org",
+    "createdAt": "2023-01-21T15:50:33.399803",
+    "schemaVersion": "1.3",
+    "author": {
+        "name": "ksenia",
+        "email": "support@wfcommons.org"
+    },
+    "wms": {
+        "name": "WfCommons",
+        "version": "0.8",
+        "url": "https://docs.wfcommons.org/en/v0.8/"
+    },
+    "workflow": {
+        "executedAt": "20230121T185033+0300",
+        "makespan": 0,
+        "tasks": [
+            {
+                "name": "individuals_00000001",
+                "type": "compute",
+                "runtime": 19.223,
+                "command": {
+                    "program": "individuals"
+                },
+                "parents": [],
+                "children": [
+                    "individuals_merge_00000011"
+                ],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "ac991223-5855-4346-a62c-ee9a175edbad.gz",
+                        "size": 26945
+                    },
+                    {
+                        "link": "input",
+                        "name": "21bb2e8e-0784-4046-bc54-0406054c7105.txt",
+                        "size": 20078
+                    },
+                    {
+                        "link": "input",
+                        "name": "a9d2bb57-6924-4bfe-8e63-e19ab2a71d7f.vcf",
+                        "size": 2737233187
+                    }
+                ],
+                "cores": 1,
+                "id": "00000001",
+                "category": "individuals"
+            },
+            {
+                "name": "individuals_00000002",
+                "type": "compute",
+                "runtime": 60.425,
+                "command": {
+                    "program": "individuals"
+                },
+                "parents": [],
+                "children": [
+                    "individuals_merge_00000011"
+                ],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "a7898b79-b0da-45c4-bee5-f1574d44b91f.gz",
+                        "size": 2931
+                    },
+                    {
+                        "link": "input",
+                        "name": "b50bdcfe-e0f8-4d64-aee3-ce70f5aa12b1.txt",
+                        "size": 20078
+                    },
+                    {
+                        "link": "input",
+                        "name": "0d432d1a-3127-4c65-8a62-cc542b6e0512.vcf",
+                        "size": 1524301261
+                    }
+                ],
+                "cores": 1,
+                "id": "00000002",
+                "category": "individuals"
+            },
+            {
+                "name": "individuals_00000003",
+                "type": "compute",
+                "runtime": 19.223,
+                "command": {
+                    "program": "individuals"
+                },
+                "parents": [],
+                "children": [
+                    "individuals_merge_00000011"
+                ],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "1b8998e2-cb1c-4a5a-8aed-5551d780f5f8.gz",
+                        "size": 6398
+                    },
+                    {
+                        "link": "input",
+                        "name": "0ebadfae-dc99-44c0-9249-005385141c9e.txt",
+                        "size": 20078
+                    },
+                    {
+                        "link": "input",
+                        "name": "b6e6213a-a5ba-4993-9b7b-ffc6e2f137d8.vcf",
+                        "size": 1839531471
+                    }
+                ],
+                "cores": 1,
+                "id": "00000003",
+                "category": "individuals"
+            },
+            {
+                "name": "individuals_00000004",
+                "type": "compute",
+                "runtime": 19.223,
+                "command": {
+                    "program": "individuals"
+                },
+                "parents": [],
+                "children": [
+                    "individuals_merge_00000011"
+                ],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "346c8d55-25ca-4c54-8075-cfd157fd08f8.gz",
+                        "size": 15376
+                    },
+                    {
+                        "link": "input",
+                        "name": "6e63d444-57e6-4e1f-bb57-c4263e285b38.txt",
+                        "size": 20078
+                    },
+                    {
+                        "link": "input",
+                        "name": "3ee2f2bc-d71e-4b05-b06a-a5e0a9a21a93.vcf",
+                        "size": 2283015210
+                    }
+                ],
+                "cores": 1,
+                "id": "00000004",
+                "category": "individuals"
+            },
+            {
+                "name": "individuals_00000005",
+                "type": "compute",
+                "runtime": 91.233,
+                "command": {
+                    "program": "individuals"
+                },
+                "parents": [],
+                "children": [
+                    "individuals_merge_00000011"
+                ],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "76a3fbb7-d644-4bcd-ab88-2dc103e5ec76.gz",
+                        "size": 7578
+                    },
+                    {
+                        "link": "input",
+                        "name": "1d302416-2479-47ac-9aca-6be11ee829b2.txt",
+                        "size": 20078
+                    },
+                    {
+                        "link": "input",
+                        "name": "f54c4427-749f-4f9d-89e1-f0fc7c97227d.vcf",
+                        "size": 2465859975
+                    }
+                ],
+                "cores": 1,
+                "id": "00000005",
+                "category": "individuals"
+            },
+            {
+                "name": "individuals_00000006",
+                "type": "compute",
+                "runtime": 135.793,
+                "command": {
+                    "program": "individuals"
+                },
+                "parents": [],
+                "children": [
+                    "individuals_merge_00000011"
+                ],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "833b7f2f-1162-4ade-9f01-837a83fe7a21.gz",
+                        "size": 9645
+                    },
+                    {
+                        "link": "input",
+                        "name": "607363d6-cbd6-454a-abaf-cea52e0676c9.txt",
+                        "size": 20078
+                    },
+                    {
+                        "link": "input",
+                        "name": "28420dc9-3ac3-4bd0-9b04-62250f9fb7da.vcf",
+                        "size": 2778241360
+                    }
+                ],
+                "cores": 1,
+                "id": "00000006",
+                "category": "individuals"
+            },
+            {
+                "name": "individuals_00000007",
+                "type": "compute",
+                "runtime": 45.861,
+                "command": {
+                    "program": "individuals"
+                },
+                "parents": [],
+                "children": [
+                    "individuals_merge_00000011"
+                ],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "5938cf3b-ffbb-41af-9b83-68a12d59fcf8.gz",
+                        "size": 25819
+                    },
+                    {
+                        "link": "input",
+                        "name": "a1a06bd7-2deb-43c9-be5f-c9a02e9548e4.txt",
+                        "size": 20078
+                    },
+                    {
+                        "link": "input",
+                        "name": "e8cfb6a4-6cc2-447b-a64c-fc43dee8fce0.vcf",
+                        "size": 2670896313
+                    }
+                ],
+                "cores": 1,
+                "id": "00000007",
+                "category": "individuals"
+            },
+            {
+                "name": "individuals_00000008",
+                "type": "compute",
+                "runtime": 183.978,
+                "command": {
+                    "program": "individuals"
+                },
+                "parents": [],
+                "children": [
+                    "individuals_merge_00000011"
+                ],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "936e632e-30e9-42d3-b678-3640cb2b2b1c.gz",
+                        "size": 6526
+                    },
+                    {
+                        "link": "input",
+                        "name": "2891a49b-5de4-45ab-a90c-bbbfc69a7dbf.txt",
+                        "size": 20078
+                    },
+                    {
+                        "link": "input",
+                        "name": "e723148d-1e0d-4743-aaea-e5df2e44204d.vcf",
+                        "size": 2299740722
+                    }
+                ],
+                "cores": 1,
+                "id": "00000008",
+                "category": "individuals"
+            },
+            {
+                "name": "individuals_00000009",
+                "type": "compute",
+                "runtime": 170.672,
+                "command": {
+                    "program": "individuals"
+                },
+                "parents": [],
+                "children": [
+                    "individuals_merge_00000011"
+                ],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "00fe24a9-fb93-4b48-9bb7-3b323c0a2bac.gz",
+                        "size": 3220
+                    },
+                    {
+                        "link": "input",
+                        "name": "d2bcfec9-d631-48d2-8cc3-1712e2d75e00.txt",
+                        "size": 20078
+                    },
+                    {
+                        "link": "input",
+                        "name": "57c385da-312e-4951-bba9-c48b863a4140.vcf",
+                        "size": 959671289
+                    }
+                ],
+                "cores": 1,
+                "id": "00000009",
+                "category": "individuals"
+            },
+            {
+                "name": "individuals_00000010",
+                "type": "compute",
+                "runtime": 19.223,
+                "command": {
+                    "program": "individuals"
+                },
+                "parents": [],
+                "children": [
+                    "individuals_merge_00000011"
+                ],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "3a17759f-e76d-492c-9488-104868196a66.gz",
+                        "size": 2931
+                    },
+                    {
+                        "link": "input",
+                        "name": "764d9f3d-0072-4d69-90ad-e41f79880ed2.txt",
+                        "size": 20078
+                    },
+                    {
+                        "link": "input",
+                        "name": "4c894d6f-b8ee-4e46-90c7-7ca3fbd7f8b8.vcf",
+                        "size": 2671690395
+                    }
+                ],
+                "cores": 1,
+                "id": "00000010",
+                "category": "individuals"
+            },
+            {
+                "name": "individuals_merge_00000011",
+                "type": "compute",
+                "runtime": 146.264,
+                "command": {
+                    "program": "individuals_merge"
+                },
+                "parents": [
+                    "individuals_00000001",
+                    "individuals_00000002",
+                    "individuals_00000003",
+                    "individuals_00000004",
+                    "individuals_00000005",
+                    "individuals_00000006",
+                    "individuals_00000007",
+                    "individuals_00000008",
+                    "individuals_00000009",
+                    "individuals_00000010"
+                ],
+                "children": [
+                    "mutation_overlap_00000025",
+                    "frequency_00000026",
+                    "mutation_overlap_00000027",
+                    "frequency_00000028",
+                    "mutation_overlap_00000029",
+                    "frequency_00000030",
+                    "mutation_overlap_00000031",
+                    "frequency_00000032",
+                    "mutation_overlap_00000033",
+                    "frequency_00000034",
+                    "mutation_overlap_00000035",
+                    "frequency_00000036",
+                    "mutation_overlap_00000037",
+                    "frequency_00000038"
+                ],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "c2dcf3d4-ddbd-48f1-bec5-4708682d120d.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "ac991223-5855-4346-a62c-ee9a175edbad.gz",
+                        "size": 26945
+                    },
+                    {
+                        "link": "input",
+                        "name": "a7898b79-b0da-45c4-bee5-f1574d44b91f.gz",
+                        "size": 2931
+                    },
+                    {
+                        "link": "input",
+                        "name": "1b8998e2-cb1c-4a5a-8aed-5551d780f5f8.gz",
+                        "size": 6398
+                    },
+                    {
+                        "link": "input",
+                        "name": "346c8d55-25ca-4c54-8075-cfd157fd08f8.gz",
+                        "size": 15376
+                    },
+                    {
+                        "link": "input",
+                        "name": "76a3fbb7-d644-4bcd-ab88-2dc103e5ec76.gz",
+                        "size": 7578
+                    },
+                    {
+                        "link": "input",
+                        "name": "833b7f2f-1162-4ade-9f01-837a83fe7a21.gz",
+                        "size": 9645
+                    },
+                    {
+                        "link": "input",
+                        "name": "5938cf3b-ffbb-41af-9b83-68a12d59fcf8.gz",
+                        "size": 25819
+                    },
+                    {
+                        "link": "input",
+                        "name": "936e632e-30e9-42d3-b678-3640cb2b2b1c.gz",
+                        "size": 6526
+                    },
+                    {
+                        "link": "input",
+                        "name": "00fe24a9-fb93-4b48-9bb7-3b323c0a2bac.gz",
+                        "size": 3220
+                    },
+                    {
+                        "link": "input",
+                        "name": "3a17759f-e76d-492c-9488-104868196a66.gz",
+                        "size": 2931
+                    }
+                ],
+                "cores": 1,
+                "id": "00000011",
+                "category": "individuals_merge"
+            },
+            {
+                "name": "sifting_00000012",
+                "type": "compute",
+                "runtime": 3.236,
+                "command": {
+                    "program": "sifting"
+                },
+                "parents": [],
+                "children": [
+                    "mutation_overlap_00000025",
+                    "frequency_00000026",
+                    "mutation_overlap_00000027",
+                    "frequency_00000028",
+                    "mutation_overlap_00000029",
+                    "frequency_00000030",
+                    "mutation_overlap_00000031",
+                    "frequency_00000032",
+                    "mutation_overlap_00000033",
+                    "frequency_00000034",
+                    "mutation_overlap_00000035",
+                    "frequency_00000036",
+                    "mutation_overlap_00000037",
+                    "frequency_00000038"
+                ],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "b0402430-f7d0-4f37-b34d-58e5166bb870.txt",
+                        "size": 981341
+                    },
+                    {
+                        "link": "input",
+                        "name": "582ec022-2018-4ca5-8efa-66c8c0394e33.vcf",
+                        "size": 799345764
+                    }
+                ],
+                "cores": 1,
+                "id": "00000012",
+                "category": "sifting"
+            },
+            {
+                "name": "individuals_00000013",
+                "type": "compute",
+                "runtime": 52.917,
+                "command": {
+                    "program": "individuals"
+                },
+                "parents": [],
+                "children": [
+                    "individuals_merge_00000023"
+                ],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "b3835ae7-d524-45f2-8e96-7b157ea7b0a8.gz",
+                        "size": 23517
+                    },
+                    {
+                        "link": "input",
+                        "name": "b9e51796-57bb-441e-bea9-6d9c5b0267fb.txt",
+                        "size": 20078
+                    },
+                    {
+                        "link": "input",
+                        "name": "1eb8fb59-3d56-4141-b565-b75c7fd2928a.vcf",
+                        "size": 1739341667
+                    }
+                ],
+                "cores": 1,
+                "id": "00000013",
+                "category": "individuals"
+            },
+            {
+                "name": "individuals_00000014",
+                "type": "compute",
+                "runtime": 102.84,
+                "command": {
+                    "program": "individuals"
+                },
+                "parents": [],
+                "children": [
+                    "individuals_merge_00000023"
+                ],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "7a22c213-d8c4-4218-8111-083803b3d57d.gz",
+                        "size": 2931
+                    },
+                    {
+                        "link": "input",
+                        "name": "0d6948d6-0969-400e-a02d-b9dbee5d4784.txt",
+                        "size": 20078
+                    },
+                    {
+                        "link": "input",
+                        "name": "8f41c350-6363-403e-9d0e-97c6799f9169.vcf",
+                        "size": 2153167365
+                    }
+                ],
+                "cores": 1,
+                "id": "00000014",
+                "category": "individuals"
+            },
+            {
+                "name": "individuals_00000015",
+                "type": "compute",
+                "runtime": 169.452,
+                "command": {
+                    "program": "individuals"
+                },
+                "parents": [],
+                "children": [
+                    "individuals_merge_00000023"
+                ],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "a921163a-02ed-40a6-88ec-2cec47afe975.gz",
+                        "size": 18712
+                    },
+                    {
+                        "link": "input",
+                        "name": "098cdd23-186c-4d1b-90c3-b2cd670d990a.txt",
+                        "size": 20078
+                    },
+                    {
+                        "link": "input",
+                        "name": "f66e8470-2103-480d-92e4-817c3a46d4dd.vcf",
+                        "size": 1775766125
+                    }
+                ],
+                "cores": 1,
+                "id": "00000015",
+                "category": "individuals"
+            },
+            {
+                "name": "individuals_00000016",
+                "type": "compute",
+                "runtime": 61.87,
+                "command": {
+                    "program": "individuals"
+                },
+                "parents": [],
+                "children": [
+                    "individuals_merge_00000023"
+                ],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "5afb3f5b-af76-4824-af3d-620a5da525b4.gz",
+                        "size": 12525
+                    },
+                    {
+                        "link": "input",
+                        "name": "9ac64adc-91b2-4c0f-a52d-603148f4dd5c.txt",
+                        "size": 20078
+                    },
+                    {
+                        "link": "input",
+                        "name": "df9e22bc-5592-4a49-87c6-5d1305c2541b.vcf",
+                        "size": 2427094644
+                    }
+                ],
+                "cores": 1,
+                "id": "00000016",
+                "category": "individuals"
+            },
+            {
+                "name": "individuals_00000017",
+                "type": "compute",
+                "runtime": 57.059,
+                "command": {
+                    "program": "individuals"
+                },
+                "parents": [],
+                "children": [
+                    "individuals_merge_00000023"
+                ],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "17aed5ab-0e78-4ea7-b5fe-769cf3fb27e7.gz",
+                        "size": 2931
+                    },
+                    {
+                        "link": "input",
+                        "name": "138bc583-7308-4fe6-abca-4a35f7d9e5dc.txt",
+                        "size": 20078
+                    },
+                    {
+                        "link": "input",
+                        "name": "146d2d00-0216-49cd-97de-badc677113b5.vcf",
+                        "size": 2105711577
+                    }
+                ],
+                "cores": 1,
+                "id": "00000017",
+                "category": "individuals"
+            },
+            {
+                "name": "individuals_00000018",
+                "type": "compute",
+                "runtime": 19.223,
+                "command": {
+                    "program": "individuals"
+                },
+                "parents": [],
+                "children": [
+                    "individuals_merge_00000023"
+                ],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "8152df6e-3eba-4bd9-afe2-d77869ee465e.gz",
+                        "size": 6976
+                    },
+                    {
+                        "link": "input",
+                        "name": "429688dc-c65a-434b-a1f2-19f7552f230e.txt",
+                        "size": 20078
+                    },
+                    {
+                        "link": "input",
+                        "name": "e0be89ef-2dcb-4bb5-9bff-7a234150e627.vcf",
+                        "size": 1657536713
+                    }
+                ],
+                "cores": 1,
+                "id": "00000018",
+                "category": "individuals"
+            },
+            {
+                "name": "individuals_00000019",
+                "type": "compute",
+                "runtime": 123.074,
+                "command": {
+                    "program": "individuals"
+                },
+                "parents": [],
+                "children": [
+                    "individuals_merge_00000023"
+                ],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "d5c67a4b-3f66-486d-8a1a-5773ce4b1aec.gz",
+                        "size": 2931
+                    },
+                    {
+                        "link": "input",
+                        "name": "11e911aa-4018-4280-a223-4a479e172eba.txt",
+                        "size": 20078
+                    },
+                    {
+                        "link": "input",
+                        "name": "62eac820-4bbb-4670-be04-cc593e0ea896.vcf",
+                        "size": 2437290391
+                    }
+                ],
+                "cores": 1,
+                "id": "00000019",
+                "category": "individuals"
+            },
+            {
+                "name": "individuals_00000020",
+                "type": "compute",
+                "runtime": 126.423,
+                "command": {
+                    "program": "individuals"
+                },
+                "parents": [],
+                "children": [
+                    "individuals_merge_00000023"
+                ],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "83d9f321-e701-4665-b756-7eeaf53b245b.gz",
+                        "size": 20325
+                    },
+                    {
+                        "link": "input",
+                        "name": "0f56e44c-97af-445e-9ac7-11e0cfbfa63a.txt",
+                        "size": 20078
+                    },
+                    {
+                        "link": "input",
+                        "name": "b0922bad-7d55-4965-960d-5237af0d8c64.vcf",
+                        "size": 1619075874
+                    }
+                ],
+                "cores": 1,
+                "id": "00000020",
+                "category": "individuals"
+            },
+            {
+                "name": "individuals_00000021",
+                "type": "compute",
+                "runtime": 145.578,
+                "command": {
+                    "program": "individuals"
+                },
+                "parents": [],
+                "children": [
+                    "individuals_merge_00000023"
+                ],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "19caf315-a286-4e65-996a-d69cd88ea754.gz",
+                        "size": 17923
+                    },
+                    {
+                        "link": "input",
+                        "name": "cb50538c-e4a7-4bb9-b526-be953e1a3286.txt",
+                        "size": 20078
+                    },
+                    {
+                        "link": "input",
+                        "name": "9dfc1097-f2d2-4eb1-958f-939261e489ba.vcf",
+                        "size": 358416588
+                    }
+                ],
+                "cores": 1,
+                "id": "00000021",
+                "category": "individuals"
+            },
+            {
+                "name": "individuals_00000022",
+                "type": "compute",
+                "runtime": 19.223,
+                "command": {
+                    "program": "individuals"
+                },
+                "parents": [],
+                "children": [
+                    "individuals_merge_00000023"
+                ],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "610273b5-8b9e-4f9f-bd85-5afde1b761be.gz",
+                        "size": 7608
+                    },
+                    {
+                        "link": "input",
+                        "name": "714418bf-1d88-436f-b52e-b42a05ab07d8.txt",
+                        "size": 20078
+                    },
+                    {
+                        "link": "input",
+                        "name": "00784d96-afc4-4ce0-9523-a6e55b0f083c.vcf",
+                        "size": 728661597
+                    }
+                ],
+                "cores": 1,
+                "id": "00000022",
+                "category": "individuals"
+            },
+            {
+                "name": "individuals_merge_00000023",
+                "type": "compute",
+                "runtime": 46.435,
+                "command": {
+                    "program": "individuals_merge"
+                },
+                "parents": [
+                    "individuals_00000013",
+                    "individuals_00000014",
+                    "individuals_00000015",
+                    "individuals_00000016",
+                    "individuals_00000017",
+                    "individuals_00000018",
+                    "individuals_00000019",
+                    "individuals_00000020",
+                    "individuals_00000021",
+                    "individuals_00000022"
+                ],
+                "children": [
+                    "mutation_overlap_00000039",
+                    "frequency_00000040",
+                    "mutation_overlap_00000041",
+                    "frequency_00000042",
+                    "mutation_overlap_00000043",
+                    "frequency_00000044",
+                    "mutation_overlap_00000045",
+                    "frequency_00000046",
+                    "mutation_overlap_00000047",
+                    "frequency_00000048",
+                    "mutation_overlap_00000049",
+                    "frequency_00000050",
+                    "mutation_overlap_00000051",
+                    "frequency_00000052"
+                ],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "dc102749-e4a4-4391-878f-6354a57163af.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "b3835ae7-d524-45f2-8e96-7b157ea7b0a8.gz",
+                        "size": 23517
+                    },
+                    {
+                        "link": "input",
+                        "name": "7a22c213-d8c4-4218-8111-083803b3d57d.gz",
+                        "size": 2931
+                    },
+                    {
+                        "link": "input",
+                        "name": "a921163a-02ed-40a6-88ec-2cec47afe975.gz",
+                        "size": 18712
+                    },
+                    {
+                        "link": "input",
+                        "name": "5afb3f5b-af76-4824-af3d-620a5da525b4.gz",
+                        "size": 12525
+                    },
+                    {
+                        "link": "input",
+                        "name": "17aed5ab-0e78-4ea7-b5fe-769cf3fb27e7.gz",
+                        "size": 2931
+                    },
+                    {
+                        "link": "input",
+                        "name": "8152df6e-3eba-4bd9-afe2-d77869ee465e.gz",
+                        "size": 6976
+                    },
+                    {
+                        "link": "input",
+                        "name": "d5c67a4b-3f66-486d-8a1a-5773ce4b1aec.gz",
+                        "size": 2931
+                    },
+                    {
+                        "link": "input",
+                        "name": "83d9f321-e701-4665-b756-7eeaf53b245b.gz",
+                        "size": 20325
+                    },
+                    {
+                        "link": "input",
+                        "name": "19caf315-a286-4e65-996a-d69cd88ea754.gz",
+                        "size": 17923
+                    },
+                    {
+                        "link": "input",
+                        "name": "610273b5-8b9e-4f9f-bd85-5afde1b761be.gz",
+                        "size": 7608
+                    }
+                ],
+                "cores": 1,
+                "id": "00000023",
+                "category": "individuals_merge"
+            },
+            {
+                "name": "sifting_00000024",
+                "type": "compute",
+                "runtime": 15.759,
+                "command": {
+                    "program": "sifting"
+                },
+                "parents": [],
+                "children": [
+                    "mutation_overlap_00000039",
+                    "frequency_00000040",
+                    "mutation_overlap_00000041",
+                    "frequency_00000042",
+                    "mutation_overlap_00000043",
+                    "frequency_00000044",
+                    "mutation_overlap_00000045",
+                    "frequency_00000046",
+                    "mutation_overlap_00000047",
+                    "frequency_00000048",
+                    "mutation_overlap_00000049",
+                    "frequency_00000050",
+                    "mutation_overlap_00000051",
+                    "frequency_00000052"
+                ],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "0fcf6d8d-6c7b-498a-803b-69e4693f9e49.txt",
+                        "size": 260561
+                    },
+                    {
+                        "link": "input",
+                        "name": "f316d1cc-5352-40ff-a6e3-5dcf9fd8e7be.vcf",
+                        "size": 1785475164
+                    }
+                ],
+                "cores": 1,
+                "id": "00000024",
+                "category": "sifting"
+            },
+            {
+                "name": "mutation_overlap_00000025",
+                "type": "compute",
+                "runtime": 35.971,
+                "command": {
+                    "program": "mutation_overlap"
+                },
+                "parents": [
+                    "individuals_merge_00000011",
+                    "sifting_00000012"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "d92034ec-66cf-4d48-8996-9becd39eb7ac.gz",
+                        "size": 151965
+                    },
+                    {
+                        "link": "input",
+                        "name": "c2dcf3d4-ddbd-48f1-bec5-4708682d120d.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "b0402430-f7d0-4f37-b34d-58e5166bb870.txt",
+                        "size": 981341
+                    },
+                    {
+                        "link": "input",
+                        "name": "9638f3da-24f6-46fc-b6eb-86aed7ef0babAFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "758f8f82-54da-4504-b314-560ee8ecd0e6GBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "8e842322-184b-4685-9c77-e15d709ffa85ALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "6c819e87-621c-4113-82da-52e94bb4c2a7SAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "eafc9713-9d78-48a1-9df0-b05e236525daEAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "9d231e1e-3e20-463c-9423-9c4ea8faed08AMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "2f166276-20c3-4aa6-93d1-21b9e73884b5EUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000025",
+                "category": "mutation_overlap"
+            },
+            {
+                "name": "frequency_00000026",
+                "type": "compute",
+                "runtime": 23.826,
+                "command": {
+                    "program": "frequency"
+                },
+                "parents": [
+                    "individuals_merge_00000011",
+                    "sifting_00000012"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "fd96081c-735d-4197-a981-1fc09eaacf58.gz",
+                        "size": 169412
+                    },
+                    {
+                        "link": "input",
+                        "name": "c2dcf3d4-ddbd-48f1-bec5-4708682d120d.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "b0402430-f7d0-4f37-b34d-58e5166bb870.txt",
+                        "size": 981341
+                    },
+                    {
+                        "link": "input",
+                        "name": "ad3a50cf-60a6-4ec7-8d9b-be21e5d9513cAFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "feba4c7f-8de0-4df5-bd4c-2caf4276eb10GBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "0da1cdf2-5e33-4bd7-a663-9118082dacecALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "12f704c8-da99-40fc-b134-381266838735SAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "d809e8f1-6770-4380-993c-39810f4348ddEAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "ed755db3-23b8-473c-958a-641e7a42b469AMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "86a7699e-1038-4e6d-9897-7a2a3ac48202EUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000026",
+                "category": "frequency"
+            },
+            {
+                "name": "mutation_overlap_00000027",
+                "type": "compute",
+                "runtime": 83.611,
+                "command": {
+                    "program": "mutation_overlap"
+                },
+                "parents": [
+                    "individuals_merge_00000011",
+                    "sifting_00000012"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "82905c2c-1985-44c1-9bc4-0c96cd66d83d.gz",
+                        "size": 17260
+                    },
+                    {
+                        "link": "input",
+                        "name": "c2dcf3d4-ddbd-48f1-bec5-4708682d120d.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "b0402430-f7d0-4f37-b34d-58e5166bb870.txt",
+                        "size": 981341
+                    },
+                    {
+                        "link": "input",
+                        "name": "337c6c84-71ba-49dc-9ed4-72c39652597eAFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "d493f35e-c7ed-43f9-a0b1-bd26b8984738GBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "6581c5bd-e980-44c3-a939-b065fd5045e3ALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "63e75de2-a4e7-4a12-8474-74730b59b5f7SAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "f11ac967-3a64-4f54-97c9-7860738e5f3cEAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "9bc189eb-d736-43ea-8961-58f67006b648AMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "5b2430b2-ddb2-481d-9717-77d9e57586caEUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000027",
+                "category": "mutation_overlap"
+            },
+            {
+                "name": "frequency_00000028",
+                "type": "compute",
+                "runtime": 23.826,
+                "command": {
+                    "program": "frequency"
+                },
+                "parents": [
+                    "individuals_merge_00000011",
+                    "sifting_00000012"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "c07e1c36-61cd-4cc4-8644-b2427f8aace9.gz",
+                        "size": 172953
+                    },
+                    {
+                        "link": "input",
+                        "name": "c2dcf3d4-ddbd-48f1-bec5-4708682d120d.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "b0402430-f7d0-4f37-b34d-58e5166bb870.txt",
+                        "size": 981341
+                    },
+                    {
+                        "link": "input",
+                        "name": "b15021f1-2195-4bb7-a645-77e6aad640e1AFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "b50691ba-3a00-490e-9173-9255b3cf4145GBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "960e2155-afb1-48ea-bff8-44305cb0cf89ALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "2e506376-e341-4d80-9053-17f2c6c09881SAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "f51b333b-0257-445b-b207-1a54bf4d4dd6EAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "398d1e9b-ebfe-4955-ac34-852fe85a37cbAMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "d0d12427-4318-44d7-9e01-743bbff949e5EUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000028",
+                "category": "frequency"
+            },
+            {
+                "name": "mutation_overlap_00000029",
+                "type": "compute",
+                "runtime": 36.255,
+                "command": {
+                    "program": "mutation_overlap"
+                },
+                "parents": [
+                    "individuals_merge_00000011",
+                    "sifting_00000012"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "6af67e79-b884-4e1e-8f59-8ad70dd6907a.gz",
+                        "size": 110246
+                    },
+                    {
+                        "link": "input",
+                        "name": "c2dcf3d4-ddbd-48f1-bec5-4708682d120d.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "b0402430-f7d0-4f37-b34d-58e5166bb870.txt",
+                        "size": 981341
+                    },
+                    {
+                        "link": "input",
+                        "name": "3386016b-d29d-42b0-96dc-524b5d57e97cAFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "52121759-5a7a-4b19-a952-d173bdba6fccGBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "24f717ff-4d33-4a87-9dc9-287dd9665d01ALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "d49c3b7f-2f71-41c4-9812-43f16307667aSAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "b3a4184c-d075-4f87-9ace-ee9646bcbe74EAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "9736699d-ee56-42bc-ac8b-23cde7bb1d3cAMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "17231eda-e138-427a-bf0d-ed125436097dEUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000029",
+                "category": "mutation_overlap"
+            },
+            {
+                "name": "frequency_00000030",
+                "type": "compute",
+                "runtime": 23.826,
+                "command": {
+                    "program": "frequency"
+                },
+                "parents": [
+                    "individuals_merge_00000011",
+                    "sifting_00000012"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "45f71adb-78d2-4903-8922-5c4e594d8f32.gz",
+                        "size": 51833
+                    },
+                    {
+                        "link": "input",
+                        "name": "c2dcf3d4-ddbd-48f1-bec5-4708682d120d.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "b0402430-f7d0-4f37-b34d-58e5166bb870.txt",
+                        "size": 981341
+                    },
+                    {
+                        "link": "input",
+                        "name": "a0fd3ee2-0ebc-46c8-8e00-c1d75f9b9ff6AFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "85b3a540-ab9d-47e0-853b-a052d1dfd1c9GBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "d884c2d0-beeb-488c-b6f6-e8a875bb67a4ALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "53ec7008-bcfa-49d8-bc13-829117eb6932SAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "d2b0d6c8-91bf-48cb-a558-d9425ddecd7eEAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "e5f7b737-3980-4a77-bb29-003912a47e95AMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "e5b48503-2233-4c5d-9fad-df481e67da79EUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000030",
+                "category": "frequency"
+            },
+            {
+                "name": "mutation_overlap_00000031",
+                "type": "compute",
+                "runtime": 82.86,
+                "command": {
+                    "program": "mutation_overlap"
+                },
+                "parents": [
+                    "individuals_merge_00000011",
+                    "sifting_00000012"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "d2380ea8-a981-44af-9c5e-8af7f687a5ff.gz",
+                        "size": 173830
+                    },
+                    {
+                        "link": "input",
+                        "name": "c2dcf3d4-ddbd-48f1-bec5-4708682d120d.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "b0402430-f7d0-4f37-b34d-58e5166bb870.txt",
+                        "size": 981341
+                    },
+                    {
+                        "link": "input",
+                        "name": "bf9049cd-4d39-41c8-944b-43879c540a9aAFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "7e9f364e-59ac-459e-b785-f5a42bd89b3aGBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "7e11065a-8e69-4593-9c16-aa616c3c1f7dALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "1d4801a7-e2b3-48f4-887f-07bbc086535aSAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "21be4398-f800-402b-85af-0202ea2a1f83EAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "5cd66ac5-6358-42da-ae63-3ec54c6e00d7AMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "ad98f336-b67e-48bc-b8da-ba05d00e045bEUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000031",
+                "category": "mutation_overlap"
+            },
+            {
+                "name": "frequency_00000032",
+                "type": "compute",
+                "runtime": 23.826,
+                "command": {
+                    "program": "frequency"
+                },
+                "parents": [
+                    "individuals_merge_00000011",
+                    "sifting_00000012"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "ddcd516e-ea56-49ad-93b0-cfe6e6fbf0e4.gz",
+                        "size": 183995
+                    },
+                    {
+                        "link": "input",
+                        "name": "c2dcf3d4-ddbd-48f1-bec5-4708682d120d.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "b0402430-f7d0-4f37-b34d-58e5166bb870.txt",
+                        "size": 981341
+                    },
+                    {
+                        "link": "input",
+                        "name": "4429d31d-79cc-4a13-ba9c-42a42cfc1dafAFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "3e7b0c3c-e3a7-4261-9b6b-5bd12943aee5GBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "d3f72201-2532-4588-83ff-cd7824c8ef7aALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "01d698f9-54f0-43cd-ab73-5e0fff681750SAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "cbe37b1a-1ee6-446b-b929-1a7a4bbfa9c6EAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "1ab5792b-8968-4677-8c0d-32bb052f0d22AMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "a56e2327-1304-46ad-b07d-86e180df1ad1EUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000032",
+                "category": "frequency"
+            },
+            {
+                "name": "mutation_overlap_00000033",
+                "type": "compute",
+                "runtime": 29.895,
+                "command": {
+                    "program": "mutation_overlap"
+                },
+                "parents": [
+                    "individuals_merge_00000011",
+                    "sifting_00000012"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "a727ae45-090f-44f0-a26e-ac5ded9477ec.gz",
+                        "size": 115835
+                    },
+                    {
+                        "link": "input",
+                        "name": "c2dcf3d4-ddbd-48f1-bec5-4708682d120d.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "b0402430-f7d0-4f37-b34d-58e5166bb870.txt",
+                        "size": 981341
+                    },
+                    {
+                        "link": "input",
+                        "name": "51713c23-83df-4962-83f5-22c2b3fddddaAFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "24d4ef8c-29a8-40aa-aafb-a5d0ff7d45c9GBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "30d96521-2d94-4d39-9db3-4d8583db6f9aALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "d01efd69-17c0-4d24-9272-724069658424SAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "79f53948-240b-435e-9e58-eafe2a91e05bEAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "92677d09-241c-4c11-943d-dd14bfee186fAMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "7415a83b-4db1-4252-9bbb-ba646c5e5658EUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000033",
+                "category": "mutation_overlap"
+            },
+            {
+                "name": "frequency_00000034",
+                "type": "compute",
+                "runtime": 23.826,
+                "command": {
+                    "program": "frequency"
+                },
+                "parents": [
+                    "individuals_merge_00000011",
+                    "sifting_00000012"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "d7afe554-468d-45e7-be7b-c803378ae117.gz",
+                        "size": 208066
+                    },
+                    {
+                        "link": "input",
+                        "name": "c2dcf3d4-ddbd-48f1-bec5-4708682d120d.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "b0402430-f7d0-4f37-b34d-58e5166bb870.txt",
+                        "size": 981341
+                    },
+                    {
+                        "link": "input",
+                        "name": "41993544-a569-40a0-9375-e1832d945958AFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "12ae5f8b-30d1-4a2b-8863-0a47f8a00877GBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "4e3a5191-fe4e-4610-aebe-9ddf12d6af6eALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "b9c032d6-b344-4405-8673-6d1939b32bc0SAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "74042cd5-aa68-4682-8836-88f17138ed4bEAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "578bdbbb-b1f2-4adb-898e-af474cabf510AMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "41c5e0e6-7efb-4e5e-addc-7eddadf9ba1dEUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000034",
+                "category": "frequency"
+            },
+            {
+                "name": "mutation_overlap_00000035",
+                "type": "compute",
+                "runtime": 63.04,
+                "command": {
+                    "program": "mutation_overlap"
+                },
+                "parents": [
+                    "individuals_merge_00000011",
+                    "sifting_00000012"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "e2f0feb8-8f52-4132-b0c8-a72d85930be5.gz",
+                        "size": 82238
+                    },
+                    {
+                        "link": "input",
+                        "name": "c2dcf3d4-ddbd-48f1-bec5-4708682d120d.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "b0402430-f7d0-4f37-b34d-58e5166bb870.txt",
+                        "size": 981341
+                    },
+                    {
+                        "link": "input",
+                        "name": "69f4f4ef-6958-4e2c-b7f4-b1b1d5be182eAFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "18460519-dc78-445e-b332-6709d8ab1824GBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "24127495-66ed-4f48-a420-668c24f20b8cALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "951e91f9-6683-4a67-9422-425fba4a7786SAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "c1f84d5b-998f-432c-982d-f356400ccf6cEAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "e9c52672-86a3-4040-b526-d3011de8c29cAMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "fddeb6fc-571b-4c46-a868-55c29962024bEUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000035",
+                "category": "mutation_overlap"
+            },
+            {
+                "name": "frequency_00000036",
+                "type": "compute",
+                "runtime": 89.872,
+                "command": {
+                    "program": "frequency"
+                },
+                "parents": [
+                    "individuals_merge_00000011",
+                    "sifting_00000012"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "e887f97d-2595-4b5f-af48-a626c808ae9d.gz",
+                        "size": 169164
+                    },
+                    {
+                        "link": "input",
+                        "name": "c2dcf3d4-ddbd-48f1-bec5-4708682d120d.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "b0402430-f7d0-4f37-b34d-58e5166bb870.txt",
+                        "size": 981341
+                    },
+                    {
+                        "link": "input",
+                        "name": "c3099048-afa1-4274-afdd-ea0f65cdc5b4AFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "38a49768-fca6-49e7-8287-7d855ad5960aGBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "a7147fa1-69f4-4791-8587-82ee475ccc51ALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "70fe6b84-a01a-4616-9f8a-e59c7ac30882SAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "9e1b194f-81a6-4898-b81e-6a92cdff1c83EAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "9d67fa52-f711-4192-8145-a5837716e17cAMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "fcdc021a-c661-4b30-a6b1-26cf66e5bba8EUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000036",
+                "category": "frequency"
+            },
+            {
+                "name": "mutation_overlap_00000037",
+                "type": "compute",
+                "runtime": 9.215,
+                "command": {
+                    "program": "mutation_overlap"
+                },
+                "parents": [
+                    "individuals_merge_00000011",
+                    "sifting_00000012"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "1d2cbe3c-fe4b-4b25-a74e-fd46ae0dc5a9.gz",
+                        "size": 149594
+                    },
+                    {
+                        "link": "input",
+                        "name": "c2dcf3d4-ddbd-48f1-bec5-4708682d120d.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "b0402430-f7d0-4f37-b34d-58e5166bb870.txt",
+                        "size": 981341
+                    },
+                    {
+                        "link": "input",
+                        "name": "8e91dd81-d9ac-4d7d-8064-1cd01f3ebbb1AFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "3446ce30-43fa-4f36-ab97-9de0f203fdccGBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "a8e2b947-8e69-4850-b8b8-cb02839b7992ALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "0b5b4d4e-de05-4e05-a4a0-fb8c11404a88SAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "af042dd7-11eb-43ba-b4cb-6b3974cd9829EAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "c0914dd8-c247-4844-933f-c20108f2d142AMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "d691e872-9aa9-421b-aac3-8979420a9794EUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000037",
+                "category": "mutation_overlap"
+            },
+            {
+                "name": "frequency_00000038",
+                "type": "compute",
+                "runtime": 23.826,
+                "command": {
+                    "program": "frequency"
+                },
+                "parents": [
+                    "individuals_merge_00000011",
+                    "sifting_00000012"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "caeb6c05-04c6-4478-b197-4c241376161e.gz",
+                        "size": 29848
+                    },
+                    {
+                        "link": "input",
+                        "name": "c2dcf3d4-ddbd-48f1-bec5-4708682d120d.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "b0402430-f7d0-4f37-b34d-58e5166bb870.txt",
+                        "size": 981341
+                    },
+                    {
+                        "link": "input",
+                        "name": "f28df883-a7e5-4b0e-840a-f3e4ad8fdb85AFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "2e762b6e-0c07-475a-aa8e-c066c6c780acGBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "a2cfa2d2-ec3c-4e08-beb8-db5fd581ebb2ALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "726898d6-bf4a-4ebe-9db9-9f23c618f1b5SAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "7b43f5cb-6b03-4d93-8440-a7e84d1bb3c2EAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "9909c246-f493-4900-84c3-4fe4c6b22e25AMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "3c6467f1-c9e7-47e5-b31d-49c65badabb9EUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000038",
+                "category": "frequency"
+            },
+            {
+                "name": "mutation_overlap_00000039",
+                "type": "compute",
+                "runtime": 9.215,
+                "command": {
+                    "program": "mutation_overlap"
+                },
+                "parents": [
+                    "individuals_merge_00000023",
+                    "sifting_00000024"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "7759aa8d-c5ed-43d2-9e78-a8414375e816.gz",
+                        "size": 150510
+                    },
+                    {
+                        "link": "input",
+                        "name": "dc102749-e4a4-4391-878f-6354a57163af.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "0fcf6d8d-6c7b-498a-803b-69e4693f9e49.txt",
+                        "size": 260561
+                    },
+                    {
+                        "link": "input",
+                        "name": "db954b8c-9cfe-49c7-b2e8-47455b7ec888AFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "ec4dd6b9-8ad5-4b44-8eb1-446ec26fb1d5GBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "4696d9a8-725f-4ebc-9160-0f38990facbfALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "b69ee9a0-dfd9-4e82-a8c4-e3b286e31b2bSAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "1ce28599-e7ec-4825-aa59-356834cc0c1dEAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "ab25dc98-600a-4ea1-8cb6-674228331186AMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "806373d3-3303-4c00-8248-12719fdc3ddfEUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000039",
+                "category": "mutation_overlap"
+            },
+            {
+                "name": "frequency_00000040",
+                "type": "compute",
+                "runtime": 151.629,
+                "command": {
+                    "program": "frequency"
+                },
+                "parents": [
+                    "individuals_merge_00000023",
+                    "sifting_00000024"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "7024617e-8557-4cbe-9b6f-83318d40fa1d.gz",
+                        "size": 155323
+                    },
+                    {
+                        "link": "input",
+                        "name": "dc102749-e4a4-4391-878f-6354a57163af.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "0fcf6d8d-6c7b-498a-803b-69e4693f9e49.txt",
+                        "size": 260561
+                    },
+                    {
+                        "link": "input",
+                        "name": "775f6858-c4ba-49f6-9378-33878724736bAFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "97bf3358-fb67-4348-ad72-895246f61ab3GBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "d6860e72-b8ea-4a9d-98ac-03e37accdb2aALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "21a83c28-b169-4a57-801e-e001d1ada4a0SAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "2a929afd-e96a-499a-91d2-757282db4c9cEAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "aa85de27-1f29-4a18-a9e3-c5cf0ee9f61cAMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "f246ed00-e64f-4074-bc7f-b2436b4fabbdEUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000040",
+                "category": "frequency"
+            },
+            {
+                "name": "mutation_overlap_00000041",
+                "type": "compute",
+                "runtime": 42.181,
+                "command": {
+                    "program": "mutation_overlap"
+                },
+                "parents": [
+                    "individuals_merge_00000023",
+                    "sifting_00000024"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "c0ce441c-4284-4540-9cec-77d98f5f28b5.gz",
+                        "size": 140866
+                    },
+                    {
+                        "link": "input",
+                        "name": "dc102749-e4a4-4391-878f-6354a57163af.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "0fcf6d8d-6c7b-498a-803b-69e4693f9e49.txt",
+                        "size": 260561
+                    },
+                    {
+                        "link": "input",
+                        "name": "272c28c4-96b2-4bd7-8192-70c746a5fc48AFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "26cf80f1-a359-4218-b6ef-ccea5e4e356bGBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "5d5cbb53-2ad1-41b4-84cc-1b2e068a8fe4ALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "9f38ad5f-265a-42b1-846a-1a55bbe2339eSAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "0bd74f3a-fc8e-4669-8f13-dd564a308ac9EAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "73d1da95-9db7-4aba-91b9-9f3b9ab23144AMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "d89ba086-6901-4f83-a429-592eccb6e6f2EUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000041",
+                "category": "mutation_overlap"
+            },
+            {
+                "name": "frequency_00000042",
+                "type": "compute",
+                "runtime": 118.038,
+                "command": {
+                    "program": "frequency"
+                },
+                "parents": [
+                    "individuals_merge_00000023",
+                    "sifting_00000024"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "1ae9b4a9-b21a-4604-8e32-15a88208fb08.gz",
+                        "size": 113840
+                    },
+                    {
+                        "link": "input",
+                        "name": "dc102749-e4a4-4391-878f-6354a57163af.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "0fcf6d8d-6c7b-498a-803b-69e4693f9e49.txt",
+                        "size": 260561
+                    },
+                    {
+                        "link": "input",
+                        "name": "d3dc705f-60b0-4560-8684-ad9742c68472AFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "fa2c4365-0f9a-4c7d-9411-baec590475d8GBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "3156cea0-13fd-46a6-b2aa-31c2eb56a640ALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "6b4c5a2f-ba4c-45ea-a09c-a5110e93df92SAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "b4d5849e-0876-4fbe-b3b7-491eb102416cEAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "291a8896-d841-4d80-a59f-727bd5a3fcd1AMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "f189f73b-6dfe-4e92-8260-8a620b48dad3EUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000042",
+                "category": "frequency"
+            },
+            {
+                "name": "mutation_overlap_00000043",
+                "type": "compute",
+                "runtime": 9.215,
+                "command": {
+                    "program": "mutation_overlap"
+                },
+                "parents": [
+                    "individuals_merge_00000023",
+                    "sifting_00000024"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "2978e608-471b-4453-9557-5c413c0aef56.gz",
+                        "size": 87165
+                    },
+                    {
+                        "link": "input",
+                        "name": "dc102749-e4a4-4391-878f-6354a57163af.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "0fcf6d8d-6c7b-498a-803b-69e4693f9e49.txt",
+                        "size": 260561
+                    },
+                    {
+                        "link": "input",
+                        "name": "b30e79aa-660c-42ee-8a96-d2a286a61076AFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "bedc75ca-39a1-4202-97e5-507dd0ddff9aGBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "d29ff1ec-a44c-40b9-8029-3f343b518d19ALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "7a594d9e-bbb8-427c-9a2a-5e61f3c442ecSAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "34511f95-6c28-4766-bd7c-3a0b4f16bc4bEAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "9b2d6848-86af-4630-a70c-9f5d37a2b60eAMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "a3249832-b729-416e-9ee2-15f7d042d459EUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000043",
+                "category": "mutation_overlap"
+            },
+            {
+                "name": "frequency_00000044",
+                "type": "compute",
+                "runtime": 23.826,
+                "command": {
+                    "program": "frequency"
+                },
+                "parents": [
+                    "individuals_merge_00000023",
+                    "sifting_00000024"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "8f8b8582-dade-42e2-b0bb-78aa0bfa3927.gz",
+                        "size": 29848
+                    },
+                    {
+                        "link": "input",
+                        "name": "dc102749-e4a4-4391-878f-6354a57163af.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "0fcf6d8d-6c7b-498a-803b-69e4693f9e49.txt",
+                        "size": 260561
+                    },
+                    {
+                        "link": "input",
+                        "name": "e94afe1d-50aa-40d3-a448-81245a405d36AFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "8bcb40d8-2632-495a-99c4-a4beecdcd377GBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "ed82d53d-c67c-4472-b739-32a7ffcc1ec2ALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "2828f385-ce21-401e-827c-154c11c6c082SAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "ecb45f44-51f9-46c9-9f45-fbad83443245EAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "9293af61-9002-4510-ab9e-72cd95a73976AMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "e7803c32-06aa-48ab-aa0c-33606f67a897EUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000044",
+                "category": "frequency"
+            },
+            {
+                "name": "mutation_overlap_00000045",
+                "type": "compute",
+                "runtime": 45.276,
+                "command": {
+                    "program": "mutation_overlap"
+                },
+                "parents": [
+                    "individuals_merge_00000023",
+                    "sifting_00000024"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "401c3b12-3ad8-436f-a6f3-29340819fa86.gz",
+                        "size": 155786
+                    },
+                    {
+                        "link": "input",
+                        "name": "dc102749-e4a4-4391-878f-6354a57163af.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "0fcf6d8d-6c7b-498a-803b-69e4693f9e49.txt",
+                        "size": 260561
+                    },
+                    {
+                        "link": "input",
+                        "name": "7ce9cd6e-ac38-44ac-857d-fc1234bb2e6dAFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "cf70c40b-9c8a-4bf6-9966-cd064f15eab0GBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "7bf30441-356c-466b-a659-ab8d2dd25e91ALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "2b4cecd3-0da2-4ef5-bc40-2780bfdbc601SAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "f56cb878-36bb-4708-b996-e6e980a4d54fEAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "c9091cc4-fcf3-47b5-a56d-e778982366f4AMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "83cd47a5-0446-483f-8c5d-fdb751a645d8EUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000045",
+                "category": "mutation_overlap"
+            },
+            {
+                "name": "frequency_00000046",
+                "type": "compute",
+                "runtime": 23.826,
+                "command": {
+                    "program": "frequency"
+                },
+                "parents": [
+                    "individuals_merge_00000023",
+                    "sifting_00000024"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "46675d4a-4adb-449e-88db-c9f2a8c5cf21.gz",
+                        "size": 43633
+                    },
+                    {
+                        "link": "input",
+                        "name": "dc102749-e4a4-4391-878f-6354a57163af.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "0fcf6d8d-6c7b-498a-803b-69e4693f9e49.txt",
+                        "size": 260561
+                    },
+                    {
+                        "link": "input",
+                        "name": "a61e49d6-c410-4f39-807f-f2248181a920AFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "0be8d84e-1fd3-414d-97ff-0ca9ba5a0632GBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "f6da03fa-f4af-474a-b54a-d0f5d082436eALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "ae11e119-9bcb-48f6-b41f-954dda623437SAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "109c094f-578a-446e-b9ed-3038bc4605c9EAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "3af9aa6c-11d0-4202-9e8a-3832820f542cAMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "358a45e7-e56a-4d80-a52c-73a0d4d2e983EUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000046",
+                "category": "frequency"
+            },
+            {
+                "name": "mutation_overlap_00000047",
+                "type": "compute",
+                "runtime": 44.164,
+                "command": {
+                    "program": "mutation_overlap"
+                },
+                "parents": [
+                    "individuals_merge_00000023",
+                    "sifting_00000024"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "b1c3879d-0721-43e3-90f6-99ca5a4c34d4.gz",
+                        "size": 86271
+                    },
+                    {
+                        "link": "input",
+                        "name": "dc102749-e4a4-4391-878f-6354a57163af.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "0fcf6d8d-6c7b-498a-803b-69e4693f9e49.txt",
+                        "size": 260561
+                    },
+                    {
+                        "link": "input",
+                        "name": "287a42cb-65a8-4603-9010-30ce01a1d6d2AFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "c5c72ca9-9c77-4905-bda4-63c00c4e4bbeGBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "e03fe6ee-5f1d-4af2-9f38-c05a7e2ddf15ALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "c3646074-faed-41f4-bcac-bfe3d05a2cecSAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "3d40fb50-79b3-47af-88d5-e1406e94525cEAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "c548bdcd-0cbe-422d-b779-46f03cf91818AMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "26f72eb9-0cf2-4b2f-bdd7-df048595bc83EUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000047",
+                "category": "mutation_overlap"
+            },
+            {
+                "name": "frequency_00000048",
+                "type": "compute",
+                "runtime": 86.23,
+                "command": {
+                    "program": "frequency"
+                },
+                "parents": [
+                    "individuals_merge_00000023",
+                    "sifting_00000024"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "847a4289-5d28-4c57-8604-a406fe1cf94d.gz",
+                        "size": 175200
+                    },
+                    {
+                        "link": "input",
+                        "name": "dc102749-e4a4-4391-878f-6354a57163af.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "0fcf6d8d-6c7b-498a-803b-69e4693f9e49.txt",
+                        "size": 260561
+                    },
+                    {
+                        "link": "input",
+                        "name": "883b234b-1a8a-4665-b3ba-9fdbffe0ca0aAFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "7bbcbc0d-66de-44c3-98f7-e6b32b84a0beGBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "3d435b5d-4f01-418e-a75b-632d23aded07ALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "0d0b8c9c-c5ae-423c-b9c2-208cc7a3c807SAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "79dfcfb4-befb-4a55-b89c-3b76f58324e4EAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "f0caab2e-3e9b-46ec-a43b-726b9f19e370AMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "6fdefa53-385d-4159-a572-7d1bdedba0a6EUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000048",
+                "category": "frequency"
+            },
+            {
+                "name": "mutation_overlap_00000049",
+                "type": "compute",
+                "runtime": 47.192,
+                "command": {
+                    "program": "mutation_overlap"
+                },
+                "parents": [
+                    "individuals_merge_00000023",
+                    "sifting_00000024"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "c2ba21af-4278-4b86-af18-2aea4eab6ddc.gz",
+                        "size": 78185
+                    },
+                    {
+                        "link": "input",
+                        "name": "dc102749-e4a4-4391-878f-6354a57163af.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "0fcf6d8d-6c7b-498a-803b-69e4693f9e49.txt",
+                        "size": 260561
+                    },
+                    {
+                        "link": "input",
+                        "name": "34f99afe-07fb-4526-8c61-caf59c65eeeaAFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "29918713-95fc-4f36-9b90-cd7470691289GBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "918ca686-e977-4985-8f8d-6838dc01c185ALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "eea68479-42a7-49a5-a7e2-679a20c97529SAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "c8c1aeb3-a371-4438-9fb5-0017c068be3fEAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "00e84b68-0d77-468d-b0f5-3c17f6632390AMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "b0e3e411-3675-44cf-90e6-dca801296eceEUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000049",
+                "category": "mutation_overlap"
+            },
+            {
+                "name": "frequency_00000050",
+                "type": "compute",
+                "runtime": 63.029,
+                "command": {
+                    "program": "frequency"
+                },
+                "parents": [
+                    "individuals_merge_00000023",
+                    "sifting_00000024"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "794a2af7-208f-4ea9-ad64-3b2d868a6505.gz",
+                        "size": 66331
+                    },
+                    {
+                        "link": "input",
+                        "name": "dc102749-e4a4-4391-878f-6354a57163af.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "0fcf6d8d-6c7b-498a-803b-69e4693f9e49.txt",
+                        "size": 260561
+                    },
+                    {
+                        "link": "input",
+                        "name": "e63841aa-eef6-4a8e-bec7-a99d05140accAFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "024daa6f-9cbc-4687-a612-8e88e55b5a6eGBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "f0cc45a3-c0a0-430d-9935-f40050434cc2ALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "e06b0e47-7ac2-4a4f-ba76-f5c1bc655a91SAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "e62f1e65-d5a3-44d7-a229-1644ac0320baEAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "96c8aed7-b6ed-43b3-8365-c790fc390528AMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "d3ae6639-edf5-4061-abc3-714ad867129fEUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000050",
+                "category": "frequency"
+            },
+            {
+                "name": "mutation_overlap_00000051",
+                "type": "compute",
+                "runtime": 58.348,
+                "command": {
+                    "program": "mutation_overlap"
+                },
+                "parents": [
+                    "individuals_merge_00000023",
+                    "sifting_00000024"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "dd41eef0-ee6b-428f-aafe-f9afe12fddc6.gz",
+                        "size": 29409
+                    },
+                    {
+                        "link": "input",
+                        "name": "dc102749-e4a4-4391-878f-6354a57163af.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "0fcf6d8d-6c7b-498a-803b-69e4693f9e49.txt",
+                        "size": 260561
+                    },
+                    {
+                        "link": "input",
+                        "name": "f2bdf6e8-ebe0-4f7f-bd09-7cde5f1bcb72AFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "b4db17c9-bfff-49d5-b946-22cef4cf427dGBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "a20f767e-a6f6-4112-a590-efe510088392ALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "00265fb6-4411-4591-8fa9-fc316887a22eSAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "b487496b-a58d-4229-8bdd-c127bb40289eEAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "b724a7e0-fe2b-4064-b0fc-90bd371061feAMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "c8f9bf5e-61f8-459a-9899-0bd16c2498b5EUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000051",
+                "category": "mutation_overlap"
+            },
+            {
+                "name": "frequency_00000052",
+                "type": "compute",
+                "runtime": 95.066,
+                "command": {
+                    "program": "frequency"
+                },
+                "parents": [
+                    "individuals_merge_00000023",
+                    "sifting_00000024"
+                ],
+                "children": [],
+                "files": [
+                    {
+                        "link": "output",
+                        "name": "739956b7-19d5-4d79-be2b-b5f80ae6e549.gz",
+                        "size": 29848
+                    },
+                    {
+                        "link": "input",
+                        "name": "dc102749-e4a4-4391-878f-6354a57163af.gz",
+                        "size": 2733
+                    },
+                    {
+                        "link": "input",
+                        "name": "0fcf6d8d-6c7b-498a-803b-69e4693f9e49.txt",
+                        "size": 260561
+                    },
+                    {
+                        "link": "input",
+                        "name": "ed1a0eb7-c2b2-45cd-b6e7-c04b194af69bAFR",
+                        "size": 8088
+                    },
+                    {
+                        "link": "input",
+                        "name": "bb4fb665-93df-4c25-8dfc-e29312720610GBR",
+                        "size": 856
+                    },
+                    {
+                        "link": "input",
+                        "name": "16f909b0-65fb-40c9-a572-359a38224051ALL",
+                        "size": 28000
+                    },
+                    {
+                        "link": "input",
+                        "name": "1bd94d6a-8050-4058-ae3d-af5fb08a7214SAS",
+                        "size": 5248
+                    },
+                    {
+                        "link": "input",
+                        "name": "54e8f452-f0a3-4df0-8e35-dc277d353861EAS",
+                        "size": 4896
+                    },
+                    {
+                        "link": "input",
+                        "name": "4715889d-4f7f-4950-9f0f-fb028279c9d2AMR",
+                        "size": 4248
+                    },
+                    {
+                        "link": "input",
+                        "name": "fb846fb1-bd6c-4a8e-af83-9fc809cff3e2EUR",
+                        "size": 5312
+                    }
+                ],
+                "cores": 1,
+                "id": "00000052",
+                "category": "frequency"
+            }
+        ]
+    }
+}

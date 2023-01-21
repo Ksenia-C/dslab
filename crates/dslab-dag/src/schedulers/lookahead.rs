@@ -11,6 +11,10 @@ use crate::scheduler::{Action, Scheduler, TimeSpan};
 use crate::schedulers::common::*;
 use crate::system::System;
 
+pub struct LookaheadScheduler {
+    data_transfer_strategy: DataTransferStrategy,
+}
+
 impl LookaheadScheduler {
     pub fn new() -> Self {
         LookaheadScheduler {

@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 parser = argparse.ArgumentParser(description="Synthetic DAG generator")
 parser.add_argument("--file_name", type=str,
                     help="path to gen file")
-parser.add_argument("-n", "--count", type=int, default=[10],
+parser.add_argument("-n", "--count", type=int, default=10,
                     help="task count")
 
 args = parser.parse_args()

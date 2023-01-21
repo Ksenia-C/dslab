@@ -105,7 +105,7 @@ fn run_scheduler(
     // println!("{:?}", vec_tmp);
 
     // let clean_file = vec_tmp.get(0).unwrap();
-    let clean_file = &file_name[8..file_name.len()];
+    let clean_file = &file_name[14..file_name.len()];
     runner.borrow().validate_completed();
     runner
         .borrow()
@@ -132,7 +132,7 @@ fn gen_graphs() -> Vec<String> {
     let path = "default/";
     fs::remove_dir_all(path).unwrap();
     fs::create_dir(path).unwrap();
-    let n_start = 24;
+    let n_start = 30;
 
     let mut result: Vec<String> = Vec::new();
     for i in 0..NUMBER_OF_EXPERIMENT {
@@ -173,6 +173,22 @@ fn gen_graphs() -> Vec<String> {
     return result;
 }
 
+fn load_graphs() -> Vec<String> {
+    let path = "traces1/";
+    fs::remove_dir_all(path).unwrap();
+    fs::create_dir(path).unwrap();
+
+    let path = "default/";
+
+    let n_start = 24;
+
+    let mut result: Vec<String> = Vec::new();
+    for i in 0..10 {
+        result.push(format!("{}workflow_{}", path, i).to_string());
+    }
+    return result;
+}
+
 struct SchedultedTask {
     pub name: String,
     pub makespans: Vec<f64>,
@@ -197,6 +213,7 @@ fn main() {
 
     let args = Args::parse();
     let path_to_graphs = gen_graphs();
+    // return;
 
     let network_model = Rc::new(RefCell::new(ConstantBandwidthNetwork::new(1.0, 0.0)));
 
@@ -243,7 +260,7 @@ fn main() {
         .set_label_area_size(LabelAreaPosition::Left, 40)
         .set_label_area_size(LabelAreaPosition::Bottom, 40)
         .caption("Makespans", ("sans-serif", 40))
-        .build_cartesian_2d(0..NUMBER_OF_EXPERIMENT, 0.0..max_makespan_value.ln())
+        .build_cartesian_2d(0..NUMBER_OF_EXPERIMENT, 0.0..max_makespan_value)
         .unwrap();
 
     ctx.configure_mesh().draw().unwrap();
@@ -255,7 +272,7 @@ fn main() {
             LineSeries::new(
                 (0..)
                     .zip(schedule.1.makespans.iter())
-                    .map(|(idx, makespan)| (idx, (*makespan).ln())), // The data iter
+                    .map(|(idx, makespan)| (idx, *makespan)), // The data iter
                 color, // Make the series opac
             ), // Make a brighter border
         )

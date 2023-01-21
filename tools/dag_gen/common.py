@@ -38,6 +38,24 @@ class SubGraph(object):
         self.end_nodes: List[str] = []
         self.nodes: Dict[str, str] = {}
         self.adjacency_list: Dict[str, List[List[str]]] = {}
+    
+    def find_all_starts(self):
+        self.start_nodes = []
+        has_reference_list = set()
+        for key, _ in self.nodes.items():
+            if key not in self.adjacency_list:
+                continue
+            for node, _ in self.adjacency_list[key]:
+                has_reference_list.add(node)
+        for key, _ in self.adjacency_list.items():
+            if key not in has_reference_list:
+                self.start_nodes.append(key)
+    
+    def find_all_ends(self):
+        self.end_nodes = []
+        for key, _ in self.nodes.items():
+            if key not in self.adjacency_list or len(self.adjacency_list[key]) == 0:
+                self.end_nodes.append(key)
 
     @staticmethod
     def graph_from_dot(filename):
@@ -57,16 +75,8 @@ class SubGraph(object):
                 else:
                     self_.nodes[components[0]] = ' '.join(components[1:])
 
-        has_reference_list = set()
-        for key, _ in self_.nodes.items():
-            if key not in self_.adjacency_list or len(self_.adjacency_list[key]) == 0:
-                self_.end_nodes.append(key)
-            else:
-                for node, _ in self_.adjacency_list[key]:
-                    has_reference_list.add(node)
-        for key, _ in self_.adjacency_list.items():
-            if key not in has_reference_list:
-                self_.start_nodes.append(key)
+        self_.find_all_starts()
+        self_.find_all_ends()
 
         return self_
     
@@ -95,7 +105,6 @@ class SubGraph(object):
         '''
         delete all ends tasks. Helpful if generated graph has only one end node.
         '''
-        new_ends = []
         for key in self.end_nodes:
             self.nodes.pop(key)
         for source, childs in self.adjacency_list.items():
@@ -108,9 +117,9 @@ class SubGraph(object):
             for ind in reversed(list_to_del):
                 childs.pop(ind)
             self.adjacency_list[source] = childs
-            if len(childs) == 0:
-                new_ends.append(source)
-        self.end_nodes = new_ends
+
+        self.find_all_starts()
+        self.find_all_ends()
     
     def eat_start(self):
         '''
@@ -119,14 +128,9 @@ class SubGraph(object):
         for key in self.start_nodes:
             self.adjacency_list.pop(key)
             self.nodes.pop(key)
-        has_referance_list = set()
-        for _, childs in self.adjacency_list.items():
-            for child, _ in childs:
-                has_referance_list.add(child)
-        self.start_nodes = []
-        for key in self.nodes.keys():
-            if key not in has_referance_list:
-                self.start_nodes.append(key)
+
+        self.find_all_starts()
+        self.find_all_ends()
 
     def data_pass_to(self, node) -> float:
         '''
@@ -192,7 +196,7 @@ class Graph:
             data_pass += random.uniform(-data_pass*0.3, data_pass*0.3)
             self.external_adjacency_list[source].append([destination, f'[size="{data_pass}"];'])
     
-    def mesh_sub(self, ind_a: int, ind_b: int, density=0.6, jump=2, random_state=42):
+    def mesh_sub(self, ind_a: int, ind_b: int, density=0.6, jump=2, random_state=None):
         '''
         combine two graphs with more links.
         all end nodes from first graph connect to one of nodes of second graph in a jump distance from start nodes.
@@ -202,24 +206,29 @@ class Graph:
         In case if you want to immitate multuthreading program ie workers with same jobs, random_state can be passed the same for every thread.
         but there is a bug so edges may look similar but not the same (don't check)
         '''
-        random.seed(random_state)
+        if random_state is not None:
+            random.seed(random_state)
 
-        start_grap = self.subgraphs[ind_a]
+        start_graph = self.subgraphs[ind_a]
         end_graph = self.subgraphs[ind_b]
         level_but = end_graph.start_nodes
-        cnt_of_prevs = len(start_grap.end_nodes)
-        levels_up = {0: set(start_grap.end_nodes)}
+        cnt_of_prevs = len(start_graph.end_nodes)
+
+        # collect nodes in start_graph in a _jump_ distance from last
+        levels_up = {0: set(start_graph.end_nodes)}
         for i in range(jump):
-            levels_up[i+1] = set()
-            for source, childs in start_grap.adjacency_list.items():
+            levels_up[i + 1] = set()
+            for source, childs in start_graph.adjacency_list.items():
                 for child, _ in childs:
                     if child in levels_up[i]:
                         levels_up[i + 1].add(source)
                         break
         
+        # make edges from end_graph levels 
         for _ in range(jump):
             for node in level_but:
                 predecessors_cnt = min(1 + int(random.uniform(0.0, density * cnt_of_prevs)), cnt_of_prevs)
+                # assert (predecessors_cnt > 0)
                 all_options = levels_up[0]
                 for i in levels_up.keys():
                     all_options |= levels_up[i]
@@ -228,7 +237,7 @@ class Graph:
                     if predecessor not in self.external_adjacency_list:
                         self.external_adjacency_list[predecessor] = []
 
-                    data_pass = start_grap.data_pass_to(node) / (random.expovariate(0.5) + 2)
+                    data_pass = start_graph.data_pass_to(node) / (random.expovariate(0.5) + 2)
                     data_edge = data_pass + random.uniform(-data_pass*0.3, data_pass*0.3)
                     self.external_adjacency_list[predecessor].append([node, f'[size="{data_edge}"];'])
             cnt_of_prevs = len(level_but)
@@ -253,13 +262,15 @@ class Graph:
             level_but = new_level
             new_level = []
         
-        for node in start_grap.end_nodes:
+        # make edges from 
+        print(start_graph.end_nodes)
+        for node in start_graph.end_nodes:
             successor = random.choice(levels_down)
             if node not in self.external_adjacency_list:
                 self.external_adjacency_list[node] = []
             if successor in list(map(lambda x: x[0], self.external_adjacency_list[node])):
                 continue
-            data_pass = start_grap.data_pass_to(node) / (random.expovariate(0.5) + 2)
+            data_pass = start_graph.data_pass_to(node) / (random.expovariate(0.5) + 2)
             data_edge = data_pass + random.uniform(-data_pass*0.3, data_pass*0.3)
             self.external_adjacency_list[node].append([successor, f'[size="{data_edge}"];'])
 

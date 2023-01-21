@@ -15,10 +15,12 @@ args = parser.parse_args()
 
 graph_components_dir = pathlib.Path("/home/ksenia/dslab/tools/dag_gen/gen_multithread_program_tmp/")
 
-one_thread_cnt = (args.count - 5 - 2) // args.thread_cnt
-main_thread_cnt = args.count - (one_thread_cnt + 1) * args.thread_cnt - 2
+# one_thread_cnt = (args.count - 5 - 2) // args.thread_cnt
+# main_thread_cnt = args.count - (one_thread_cnt + 1) * args.thread_cnt - 2
+main_thread_cnt = 5
+one_thread_cnt = 3
 
-mainThreadGraph = GraphParams(n=main_thread_cnt, fat=0.7).gen_sub_graph(graph_components_dir, 'main_thread')
+mainThreadGraph = GraphParams(n=main_thread_cnt, fat=0.6).gen_sub_graph(graph_components_dir, 'main_thread')
 oneThreadGraph = GraphParams(n=one_thread_cnt, fat=0.7).gen_sub_graph(graph_components_dir, 'one_thread')
 
 resultGraph = Graph()
@@ -29,13 +31,14 @@ one_thread = SubGraph.graph_from_dot(graph_components_dir / "one_thread.dot")
 one_thread.eat_start()
 end_sync = SubGraph.get_single_node()
 
-NUM_OF_PARALEL = args.thread_cnt  # 20
-resultGraph.add_sub_direct(0, deepcopy(main_thread), f"main")
-for i in range(NUM_OF_PARALEL):
+# NUM_OF_PARALLEL = args.thread_cnt  # 20
+NUM_OF_PARALLEL = (args.count - main_thread_cnt - 5) // one_thread_cnt
+resultGraph.mesh_sub_direct(0, deepcopy(main_thread), f"main")
+for i in range(NUM_OF_PARALLEL):
     resultGraph.mesh_sub_direct(0, deepcopy(one_thread), f"thread_{i}")
 
-resultGraph.add_sub_direct(1, end_sync, f"end")
-for i in range(NUM_OF_PARALEL):
-    resultGraph.add_sub(i + 2, NUM_OF_PARALEL + 2)
+resultGraph.mesh_sub_direct(1, end_sync, f"end")
+for i in range(NUM_OF_PARALLEL):
+    resultGraph.add_sub(i + 2, NUM_OF_PARALLEL + 2)
 
 resultGraph.write_to_dot(args.file_name)

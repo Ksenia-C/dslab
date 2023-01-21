@@ -1,0 +1,33 @@
+digraph G {
+init_node [size="1.0"];
+task_1_main [size="2.129140e+01"];
+task_2_main [size="1.540917e+01"];
+task_1_main -> task_2_main [size="2.003192e+01"];
+task_1_thread_0 [size="2.129140e+01"];
+end_thread_0 [size="1.000000e+00"];
+task_1_thread_0 -> end_thread_0 [size="1.000000e-12"];
+task_1_thread_1 [size="2.129140e+01"];
+end_thread_1 [size="1.000000e+00"];
+task_1_thread_1 -> end_thread_1 [size="1.000000e-12"];
+task_1_thread_2 [size="2.129140e+01"];
+end_thread_2 [size="1.000000e+00"];
+task_1_thread_2 -> end_thread_2 [size="1.000000e-12"];
+task_1_thread_3 [size="2.129140e+01"];
+end_thread_3 [size="1.000000e+00"];
+task_1_thread_3 -> end_thread_3 [size="1.000000e-12"];
+init_node_end [size="1.0"];
+init_node -> task_1_main [size="22.599564578570686"];
+init_node -> task_1_thread_0 [size="12.866561485514314"];
+init_node -> end_thread_0 [size="2.227523125892711"];
+init_node -> task_1_thread_1 [size="12.866561485514314"];
+init_node -> end_thread_1 [size="2.227523125892711"];
+init_node -> task_1_thread_2 [size="12.866561485514314"];
+init_node -> end_thread_2 [size="2.227523125892711"];
+init_node -> task_1_thread_3 [size="12.866561485514314"];
+init_node -> end_thread_3 [size="2.227523125892711"];
+task_2_main -> init_node_end [size="16.818730642119093"];
+end_thread_0 -> init_node_end [size="1.0612112374299881e-12"];
+end_thread_1 -> init_node_end [size="1.0367470377631677e-12"];
+end_thread_2 -> init_node_end [size="1.1296117677534421e-12"];
+end_thread_3 -> init_node_end [size="1.1207949841541414e-12"];
+}

@@ -1,0 +1,73 @@
+digraph G {
+
+bowtie2_build_00000001 [size="3.2031122296887227",color="#2500DA"];
+fasterq_dump_00000002 [size="8.04742569428912",color="#5F00A0"];
+bowtie2_00000003 [size="3.855283327435516",color="#2D00D2"];
+fasterq_dump_00000004 [size="7.628574045216957",color="#5A00A5"];
+bowtie2_00000005 [size="4.095793511987205",color="#3000CF"];
+fasterq_dump_00000006 [size="7.148342599241035",color="#5400AB"];
+bowtie2_00000007 [size="3.59338675765446",color="#2A00D5"];
+fasterq_dump_00000008 [size="7.657700947505372",color="#5B00A4"];
+bowtie2_00000009 [size="4.493802776122419",color="#3500CA"];
+fasterq_dump_00000010 [size="7.077784088606677",color="#5400AB"];
+bowtie2_00000011 [size="4.697767598655557",color="#3700C8"];
+fasterq_dump_00000012 [size="6.298616470903932",color="#4A00B5"];
+bowtie2_00000013 [size="4.014092110331561",color="#2F00D0"];
+fasterq_dump_00000014 [size="7.868507199469657",color="#5D00A2"];
+bowtie2_00000015 [size="3.854224386700774",color="#2D00D2"];
+fasterq_dump_00000016 [size="6.07619624426765",color="#4800B7"];
+bowtie2_00000017 [size="2.5727648903096845",color="#1E00E1"];
+fasterq_dump_00000018 [size="8.245057117959602",color="#62009D"];
+bowtie2_00000019 [size="2.5727648903096845",color="#1E00E1"];
+fasterq_dump_00000020 [size="7.566072373463452",color="#5900A6"];
+bowtie2_00000021 [size="4.6418877689232545",color="#3700C8"];
+merge_00000022 [size="0.02955880224154443",color="#0000FF"];
+bowtie2_build_00000001 -> bowtie2_00000003 [size="12.954384865590017",color="#9A0065"];
+bowtie2_build_00000001 -> bowtie2_00000005 [size="12.954384865590017",color="#9A0065"];
+bowtie2_build_00000001 -> bowtie2_00000007 [size="12.954384865590017",color="#9A0065"];
+bowtie2_build_00000001 -> bowtie2_00000009 [size="12.954384865590017",color="#9A0065"];
+bowtie2_build_00000001 -> bowtie2_00000011 [size="12.954384865590017",color="#9A0065"];
+bowtie2_build_00000001 -> bowtie2_00000013 [size="12.954384865590017",color="#9A0065"];
+bowtie2_build_00000001 -> bowtie2_00000015 [size="12.954384865590017",color="#9A0065"];
+bowtie2_build_00000001 -> bowtie2_00000017 [size="12.954384865590017",color="#9A0065"];
+bowtie2_build_00000001 -> bowtie2_00000019 [size="12.954384865590017",color="#9A0065"];
+bowtie2_build_00000001 -> bowtie2_00000021 [size="12.954384865590017",color="#9A0065"];
+root -> bowtie2_build_00000001 [size="11.500063098253284",color="#880077"];
+fasterq_dump_00000002 -> bowtie2_00000003 [size="20.381933187231",color="#F2000D"];
+bowtie2_00000003 -> merge_00000022 [size="3.2188758248682006",color="#2600D9"];
+bowtie2_00000003 -> merge_00000022 [size="5.762051382780177",color="#4400BB"];
+fasterq_dump_00000004 -> bowtie2_00000005 [size="21.209765461031303",color="#FC0003"];
+bowtie2_00000005 -> merge_00000022 [size="3.2188758248682006",color="#2600D9"];
+bowtie2_00000005 -> merge_00000022 [size="5.762051382780177",color="#4400BB"];
+fasterq_dump_00000006 -> bowtie2_00000007 [size="19.104323853570374",color="#E3001C"];
+bowtie2_00000007 -> merge_00000022 [size="3.2188758248682006",color="#2600D9"];
+bowtie2_00000007 -> merge_00000022 [size="5.762051382780177",color="#4400BB"];
+fasterq_dump_00000008 -> bowtie2_00000009 [size="21.401701624673272",color="#FF0000"];
+bowtie2_00000009 -> merge_00000022 [size="3.2188758248682006",color="#2600D9"];
+bowtie2_00000009 -> merge_00000022 [size="5.762051382780177",color="#4400BB"];
+fasterq_dump_00000010 -> bowtie2_00000011 [size="21.227497798219314",color="#FC0003"];
+bowtie2_00000011 -> merge_00000022 [size="3.2188758248682006",color="#2600D9"];
+bowtie2_00000011 -> merge_00000022 [size="5.762051382780177",color="#4400BB"];
+fasterq_dump_00000012 -> bowtie2_00000013 [size="20.787823157907265",color="#F70008"];
+bowtie2_00000013 -> merge_00000022 [size="3.2188758248682006",color="#2600D9"];
+bowtie2_00000013 -> merge_00000022 [size="5.762051382780177",color="#4400BB"];
+fasterq_dump_00000014 -> bowtie2_00000015 [size="21.333220560242218",color="#FE0001"];
+bowtie2_00000015 -> merge_00000022 [size="3.2188758248682006",color="#2600D9"];
+bowtie2_00000015 -> merge_00000022 [size="5.762051382780177",color="#4400BB"];
+fasterq_dump_00000016 -> bowtie2_00000017 [size="20.80715152689528",color="#F70008"];
+bowtie2_00000017 -> merge_00000022 [size="3.2188758248682006",color="#2600D9"];
+bowtie2_00000017 -> merge_00000022 [size="5.762051382780177",color="#4400BB"];
+fasterq_dump_00000018 -> bowtie2_00000019 [size="21.10243970549074",color="#FB0004"];
+bowtie2_00000019 -> merge_00000022 [size="3.2188758248682006",color="#2600D9"];
+bowtie2_00000019 -> merge_00000022 [size="5.762051382780177",color="#4400BB"];
+fasterq_dump_00000020 -> bowtie2_00000021 [size="21.22520816178813",color="#FC0003"];
+bowtie2_00000021 -> merge_00000022 [size="3.2188758248682006",color="#2600D9"];
+bowtie2_00000021 -> merge_00000022 [size="5.762051382780177",color="#4400BB"];
+merge_00000022 -> end [size="7.71289096149013",color="#5B00A4"];
+root -> merge_00000022 [size="8.742254901886351",color="#670098"];
+  root [label="root",size="0.0"];
+
+  end [label="end",size="0.0"];
+
+}
+
