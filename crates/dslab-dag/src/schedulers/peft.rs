@@ -1,3 +1,4 @@
+use std::cell::Cell;
 use std::collections::{BTreeSet, HashMap};
 
 use dslab_core::context::SimulationContext;
@@ -15,6 +16,7 @@ use crate::system::System;
 pub struct PeftScheduler {
     data_transfer_strategy: DataTransferStrategy,
     original_network_estimation: bool,
+    pub task_order: Cell<Vec<usize>>,
 }
 
 impl PeftScheduler {
@@ -22,6 +24,7 @@ impl PeftScheduler {
         Self {
             data_transfer_strategy: DataTransferStrategy::Eager,
             original_network_estimation: false,
+            task_order: Cell::new(Vec::new()),
         }
     }
 
@@ -31,6 +34,7 @@ impl PeftScheduler {
                 .get("data_transfer_strategy")
                 .unwrap_or(DataTransferStrategy::Eager),
             original_network_estimation: params.get("original_network_estimation").unwrap_or(false),
+            task_order: Cell::new(Vec::new()),
         }
     }
 
@@ -106,6 +110,8 @@ impl PeftScheduler {
 
         let mut result: Vec<(f64, Action)> = Vec::new();
 
+        let mut task_order: Vec<usize> = Vec::new();
+
         for _ in 0..task_ids.len() {
             // first ready task in task_ids, which is already sorted by ranks
             let task_id = *task_ids
@@ -119,6 +125,9 @@ impl PeftScheduler {
                         .all(|task| scheduled[task])
                 })
                 .unwrap();
+
+            task_order.push(task_id);
+
             let mut best_finish = -1.;
             let mut best_start = -1.;
             let mut best_oeft = -1.;
@@ -184,12 +193,17 @@ impl PeftScheduler {
             ));
         }
 
+        self.task_order.set(task_order);
+
         result.sort_by(|a, b| a.0.total_cmp(&b.0));
         result.into_iter().map(|(_, b)| b).collect()
     }
 }
 
 impl Scheduler for PeftScheduler {
+    fn get_task_order(&self) -> Vec<usize> {
+        return self.task_order.take();
+    }
     fn start(&mut self, dag: &DAG, system: System, config: Config, ctx: &SimulationContext) -> Vec<Action> {
         assert_ne!(
             config.data_transfer_mode,

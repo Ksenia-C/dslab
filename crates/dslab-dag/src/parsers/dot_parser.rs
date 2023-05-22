@@ -135,7 +135,7 @@ impl DAG {
                 nodes.push(Node {
                     name: token1.iter().collect(),
                     label: params.remove("label"),
-                    size: params.get("size").unwrap().parse::<f64>().unwrap() / 1e9, // convert to Gflops
+                    size: params.get("size").unwrap().parse::<f64>().unwrap(),
                 });
             }
         }

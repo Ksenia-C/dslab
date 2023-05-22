@@ -83,6 +83,10 @@ pub struct DAGRunner {
 }
 
 impl DAGRunner {
+    pub fn task_order(&self) -> Vec<usize> {
+        let result = self.scheduler.borrow().get_task_order();
+        result
+    }
     pub fn new(
         dag: DAG,
         network: Rc<RefCell<Network>>,

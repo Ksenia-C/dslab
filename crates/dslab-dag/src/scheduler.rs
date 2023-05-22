@@ -90,6 +90,10 @@ pub trait Scheduler {
 
     /// Should be true iff on_task_state_chaged always returns empty vector.
     fn is_static(&self) -> bool;
+
+    fn get_task_order(&self) -> Vec<usize> {
+        return Vec::new();
+    }
 }
 
 pub type RcScheduler = Rc<RefCell<dyn Scheduler>>;

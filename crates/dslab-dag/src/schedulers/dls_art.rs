@@ -1,3 +1,7 @@
+/*
+   Descendant Consideration
+*/
+
 use std::collections::{BTreeSet, HashMap};
 
 use dslab_core::context::SimulationContext;
@@ -11,18 +15,29 @@ use crate::scheduler::{Action, Scheduler, SchedulerParams, TimeSpan};
 use crate::schedulers::common::*;
 use crate::schedulers::treap::Treap;
 use crate::system::System;
-use std::cell::Cell;
 
-pub struct DlsScheduler {
-    data_transfer_strategy: DataTransferStrategy,
-    pub task_order: Cell<Vec<usize>>,
+pub struct CoefDescr {
+    pub static_level: f64,
+    pub start_time: f64,
+    pub delta: f64,
+    pub ds: f64,
 }
 
-impl DlsScheduler {
+pub struct DlsArtScheduler {
+    data_transfer_strategy: DataTransferStrategy,
+    coefs: CoefDescr,
+}
+
+impl DlsArtScheduler {
     pub fn new() -> Self {
         Self {
             data_transfer_strategy: DataTransferStrategy::Eager,
-            task_order: Cell::new(Vec::new()),
+            coefs: CoefDescr {
+                static_level: 1.0,
+                delta: 1.0,
+                start_time: -1.0,
+                ds: 1.0,
+            },
         }
     }
 
@@ -31,12 +46,22 @@ impl DlsScheduler {
             data_transfer_strategy: params
                 .get("data_transfer_strategy")
                 .unwrap_or(DataTransferStrategy::Eager),
-            task_order: Cell::new(Vec::new()),
+            coefs: CoefDescr {
+                static_level: 1.0,
+                delta: 1.0,
+                start_time: -1.0,
+                ds: 1.0,
+            },
         }
     }
 
     pub fn with_data_transfer_strategy(mut self, data_transfer_strategy: DataTransferStrategy) -> Self {
         self.data_transfer_strategy = data_transfer_strategy;
+        self
+    }
+
+    pub fn with_other_coefs(mut self, try_coefs: CoefDescr) -> Self {
+        self.coefs = try_coefs;
         self
     }
 
@@ -65,8 +90,6 @@ impl DlsScheduler {
         let mut task_locations: HashMap<usize, Id> = HashMap::new();
 
         let mut result: Vec<(f64, Action)> = Vec::new();
-
-        let mut task_order: Vec<usize> = Vec::new();
 
         for _ in 0..task_ids.len() {
             // stores (task_id, resource) pair with the best dynamic level value
@@ -105,7 +128,57 @@ impl DlsScheduler {
 
                     let delta =
                         dag.get_task(task_id).flops * (median_flop_time - 1. / system.resources[resource].speed);
-                    let current_score = task_static_levels[task_id] - start_time + delta;
+                    let current_score_1 = &self.coefs.static_level * task_static_levels[task_id]
+                        + &self.coefs.start_time * start_time
+                        + &self.coefs.delta * delta;
+                    //  Descendant Consideration
+                    let dc: f64 = match dag
+                        .get_task(task_id)
+                        .outputs
+                        .iter()
+                        .filter_map(|data_item_id| {
+                            let data_item = dag.get_data_item(*data_item_id);
+                            match data_item.consumers.len() {
+                                0 => None,
+                                _ => Some((data_item.size, data_item_id, &data_item.consumers)),
+                            }
+                        })
+                        .max_by(|a, b| a.0.total_cmp(&b.0))
+                    {
+                        Some((_, _, consumers)) => {
+                            assert!(consumers.len() == 1);
+
+                            let consumer = dag.get_task(*consumers.last().unwrap());
+                            let f = resources
+                                .iter()
+                                .filter_map(|desc_resource| {
+                                    if desc_resource.id == resources[resource].id {
+                                        return None;
+                                    }
+                                    let communication_cost = config.data_transfer_mode.net_time(
+                                        network,
+                                        resources[resource].id,
+                                        desc_resource.id,
+                                        ctx.id(),
+                                    );
+
+                                    return Some(consumer.flops / desc_resource.speed + communication_cost);
+                                })
+                                .collect::<Vec<f64>>();
+                            let f = f.iter().min_by(|&a, &b| a.total_cmp(b));
+                            match f {
+                                Some(f) => {
+                                    consumer.flops * median_flop_time
+                                        - f.min(consumer.flops / resources[resource].speed)
+                                }
+                                None => 0.0,
+                            }
+                        }
+                        None => 0.0,
+                    };
+                    let current_score_2 = current_score_1 + &self.coefs.ds * dc;
+
+                    let current_score = current_score_2;
                     if current_score > best_dl {
                         best_dl = current_score;
                         best_pair = Some((task_id, resource));
@@ -117,8 +190,6 @@ impl DlsScheduler {
             }
 
             let (task_id, resource) = best_pair.unwrap();
-
-            task_order.push(task_id);
 
             scheduled[task_id] = true;
             task_finish_times[task_id] = best_finish;
@@ -142,22 +213,17 @@ impl DlsScheduler {
             ));
         }
 
-        self.task_order.set(task_order);
-
         result.sort_by(|a, b| a.0.total_cmp(&b.0));
         result.into_iter().map(|(_, b)| b).collect()
     }
 }
 
-impl Scheduler for DlsScheduler {
-    fn get_task_order(&self) -> Vec<usize> {
-        return self.task_order.take();
-    }
+impl Scheduler for DlsArtScheduler {
     fn start(&mut self, dag: &DAG, system: System, config: Config, ctx: &SimulationContext) -> Vec<Action> {
         assert_ne!(
             config.data_transfer_mode,
             DataTransferMode::Manual,
-            "DlsScheduler doesn't support DataTransferMode::Manual"
+            "DlsArtScheduler doesn't support DataTransferMode::Manual"
         );
 
         if dag.get_tasks().iter().any(|task| task.min_cores != task.max_cores) {
@@ -175,7 +241,7 @@ impl Scheduler for DlsScheduler {
     }
 }
 
-impl Default for DlsScheduler {
+impl Default for DlsArtScheduler {
     fn default() -> Self {
         Self::new()
     }

@@ -1,3 +1,7 @@
+/*
+   different rank funtion before selecting
+*/
+
 use std::collections::{BTreeSet, HashMap};
 
 use dslab_core::context::SimulationContext;
@@ -11,18 +15,15 @@ use crate::scheduler::{Action, Scheduler, SchedulerParams, TimeSpan};
 use crate::schedulers::common::*;
 use crate::schedulers::treap::Treap;
 use crate::system::System;
-use std::cell::Cell;
 
-pub struct HeftScheduler {
+pub struct HeftNewScheduler {
     data_transfer_strategy: DataTransferStrategy,
-    pub task_order: Cell<Vec<usize>>,
 }
 
-impl HeftScheduler {
+impl HeftNewScheduler {
     pub fn new() -> Self {
         Self {
             data_transfer_strategy: DataTransferStrategy::Eager,
-            task_order: Cell::new(Vec::new()),
         }
     }
 
@@ -31,13 +32,7 @@ impl HeftScheduler {
             data_transfer_strategy: params
                 .get("data_transfer_strategy")
                 .unwrap_or(DataTransferStrategy::Eager),
-            task_order: Cell::new(Vec::new()),
         }
-    }
-
-    pub fn with_task_order(mut self, task_order: Vec<usize>) -> Self {
-        self.task_order.set(task_order);
-        self
     }
 
     pub fn with_data_transfer_strategy(mut self, data_transfer_strategy: DataTransferStrategy) -> Self {
@@ -54,14 +49,9 @@ impl HeftScheduler {
         let task_count = dag.get_tasks().len();
 
         let task_ranks = calc_ranks(system.avg_flop_time(), avg_net_time, dag);
-        let mut task_ids = (0..task_count).collect::<Vec<_>>();
-        task_ids.sort_by(|&a, &b| task_ranks[b].total_cmp(&task_ranks[a]));
-
-        if unsafe { (*self.task_order.as_ptr()).len() } == 0 {
-            self.task_order.set(task_ids.clone());
-        } else {
-            task_ids = self.task_order.take();
-        }
+        // let mut task_ids_ = (0..task_count).collect::<Vec<_>>();
+        // task_ids_.sort_by(|&a, &b| task_ranks[b].total_cmp(&task_ranks[a]));
+        let task_ids = sort_tasks(dag, system, avg_net_time, &task_ranks);
 
         let mut task_finish_times = vec![0.; task_count];
         let mut scheduled_tasks: Vec<Vec<BTreeSet<ScheduledTask>>> = resources
@@ -140,7 +130,7 @@ impl HeftScheduler {
     }
 }
 
-impl Scheduler for HeftScheduler {
+impl Scheduler for HeftNewScheduler {
     fn start(&mut self, dag: &DAG, system: System, config: Config, ctx: &SimulationContext) -> Vec<Action> {
         assert_ne!(
             config.data_transfer_mode,
@@ -158,16 +148,12 @@ impl Scheduler for HeftScheduler {
         self.schedule(dag, system, config, ctx)
     }
 
-    fn get_task_order(&self) -> Vec<usize> {
-        return self.task_order.take();
-    }
-
     fn is_static(&self) -> bool {
         true
     }
 }
 
-impl Default for HeftScheduler {
+impl Default for HeftNewScheduler {
     fn default() -> Self {
         Self::new()
     }

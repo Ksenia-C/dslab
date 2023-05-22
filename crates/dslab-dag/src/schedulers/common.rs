@@ -5,6 +5,7 @@ use std::ops::Bound::{Excluded, Included, Unbounded};
 use dslab_core::context::SimulationContext;
 use dslab_core::Id;
 use dslab_network::network::Network;
+// use rand::prelude::Distribution;
 
 use crate::dag::DAG;
 use crate::data_item::{DataTransferMode, DataTransferStrategy};
@@ -292,4 +293,181 @@ pub fn topsort(dag: &DAG) -> Vec<usize> {
     assert_eq!(order.len(), dag.get_tasks().len());
     order.reverse();
     order
+}
+
+pub fn get_critical_path_dfs(v: usize, dag: &DAG, max_cp: &mut Vec<f64>) {
+    for &(succ, _) in task_successors(v, dag).iter() {
+        if max_cp[succ] == 0.0 {
+            get_critical_path_dfs(succ, dag, max_cp);
+        }
+        max_cp[v] = max_cp[v].max(max_cp[succ]);
+    }
+    max_cp[v] += dag.get_task(v).flops;
+}
+
+pub fn get_critical_path(dag: &DAG) -> f64 {
+    let mut max_cp = vec![0.0; dag.get_tasks().len()];
+    for i in 0..dag.get_tasks().len() {
+        if max_cp[i] == 0.0 {
+            get_critical_path_dfs(i, dag, &mut max_cp);
+        }
+    }
+    *(max_cp.iter().max_by(|&a, &b| a.partial_cmp(b).unwrap()).unwrap_or(&0.0))
+}
+
+pub fn calc_edges_to_sink(
+    v: usize,
+    avg_flop_time: f64,
+    avg_net_time: f64,
+    dag: &DAG,
+    ranks: &mut Vec<u32>,
+    used: &mut Vec<bool>,
+) {
+    if used[v] {
+        return;
+    }
+    used[v] = true;
+
+    ranks[v] = 0;
+    for &(succ, _edge_weight) in task_successors(v, dag).iter() {
+        calc_edges_to_sink(succ, avg_flop_time, avg_net_time, dag, ranks, used);
+        ranks[v] = ranks[v].max(ranks[succ] + 1);
+    }
+}
+
+pub fn calc_edges_to_sinks(avg_flop_time: f64, avg_net_time: f64, dag: &DAG) -> Vec<u32> {
+    let total_tasks = dag.get_tasks().len();
+
+    let mut used = vec![false; total_tasks];
+    let mut ranks = vec![0; total_tasks];
+
+    for i in 0..total_tasks {
+        calc_edges_to_sink(i, avg_flop_time, avg_net_time, dag, &mut ranks, &mut used);
+    }
+
+    ranks
+}
+pub fn calc_heavy_son(dag: &DAG) -> Vec<f64> {
+    let all_tasks_cnt = dag.get_tasks().len();
+    let mut ranks: Vec<f64> = vec![0.0; all_tasks_cnt];
+
+    for v in 0..all_tasks_cnt {
+        ranks[v] = 0.0;
+        for &(succ, edge_weight) in task_successors(v, dag).iter() {
+            ranks[v] += edge_weight + dag.get_task(succ).flops;
+        }
+    }
+    ranks
+}
+pub fn calc_cnt_son(dag: &DAG) -> Vec<usize> {
+    let all_tasks_cnt = dag.get_tasks().len();
+    let mut ranks: Vec<usize> = vec![0; all_tasks_cnt];
+
+    for v in 0..all_tasks_cnt {
+        ranks[v] = task_successors(v, dag).len();
+    }
+    ranks
+}
+
+pub fn calc_input_data(dag: &DAG) -> Vec<f64> {
+    let all_tasks_cnt = dag.get_tasks().len();
+    let mut ranks: Vec<f64> = vec![0.0; all_tasks_cnt];
+
+    for v in 0..all_tasks_cnt {
+        ranks[v] = 0.0;
+        for input_data_fl in dag
+            .get_task(v)
+            .inputs
+            .iter()
+            .map(|data_item_id| dag.get_data_item(*data_item_id).size)
+        {
+            ranks[v] += input_data_fl;
+        }
+    }
+    ranks
+}
+use crate::system::System;
+use std::collections::BinaryHeap;
+
+#[derive(PartialEq, Debug)]
+struct CustomRankSort {
+    task_id: usize,
+    rnk: f64,
+}
+
+impl PartialOrd for CustomRankSort {
+    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+        if (self.rnk - other.rnk).abs() < 1e-9 {
+            return other.task_id.partial_cmp(&self.task_id);
+        }
+        self.rnk.partial_cmp(&other.rnk)
+    }
+}
+
+impl Ord for CustomRankSort {
+    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
+        self.partial_cmp(&other).unwrap()
+    }
+}
+
+impl Eq for CustomRankSort {}
+
+pub fn sort_tasks(dag: &DAG, system: System, avg_net_time: f64, _task_ranks: &Vec<f64>) -> Vec<usize> {
+    let task_ranks = calc_ranks(system.avg_flop_time(), avg_net_time, dag);
+    // let _edge_to_sink = Self::calc_edges_to_sinks(system.avg_flop_time(), avg_net_time, dag);
+    let heavy_son = calc_heavy_son(dag);
+    // let cnt_sons = Self::calc_cnt_son(dag);
+    // let input_szs = calc_input_data(dag);
+    let mut used: Vec<i32> = vec![0; dag.get_tasks().len()];
+
+    // let get_rank = |task_id: usize| heavy_son[task_id];
+    // у этой есть улучшения по сравнению с heft
+    // let get_rank = |task_id: usize| {
+    //     2.0 * cnt_sons[task_id] as f64 * task_ranks[task_id] / (cnt_sons[task_id] as f64 + task_ranks[task_id])
+    // };
+    // Предположение (аля тестовая выборка, проверить на большей)
+    // у этой большое количество улучшений по сравнению с heft даже если мелкие, incr
+    let get_rank = |task_id: usize| {
+        2.0 * heavy_son[task_id] as f64 * task_ranks[task_id] / (heavy_son[task_id] as f64 + task_ranks[task_id])
+    };
+
+    // search this
+    // let get_rank = |task_id: usize| {
+    //     2.0 * heavy_son[task_id] as f64 * task_ranks[task_id] / (heavy_son[task_id] as f64 + task_ranks[task_id])
+    // };
+
+    let mut heap_sort = BinaryHeap::<CustomRankSort>::new();
+    for task_id in 0..dag.get_tasks().len() {
+        let task = dag.get_task(task_id);
+        if task.inputs.len() == 0 || (task.inputs.len() == 1 && dag.get_data_item(task.inputs[0]).producer.is_none()) {
+            heap_sort.push(CustomRankSort {
+                task_id,
+                rnk: get_rank(task_id),
+            });
+            used[task_id] = -1;
+        } else {
+            used[task_id] = task.inputs.len() as i32;
+        }
+    }
+
+    let mut result = Vec::<usize>::new();
+    while !heap_sort.is_empty() {
+        let task_id = heap_sort.peek().unwrap().task_id;
+        result.push(task_id);
+        heap_sort.pop();
+        for &(succ, _) in task_successors(task_id, dag).iter() {
+            if used[succ] > 0 {
+                used[succ] -= 1;
+                if used[succ] == 0 {
+                    heap_sort.push(CustomRankSort {
+                        task_id: succ,
+                        rnk: get_rank(succ),
+                    });
+                    used[succ] = -1;
+                }
+            }
+        }
+    }
+    assert!(used.iter().sum::<i32>() == -(used.len() as i32));
+    result
 }

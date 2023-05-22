@@ -1,3 +1,8 @@
+/*
+heft range + peft resource selection
+*/
+
+use std::cell::Cell;
 use std::collections::{BTreeSet, HashMap};
 
 use dslab_core::context::SimulationContext;
@@ -11,14 +16,13 @@ use crate::scheduler::{Action, Scheduler, SchedulerParams, TimeSpan};
 use crate::schedulers::common::*;
 use crate::schedulers::treap::Treap;
 use crate::system::System;
-use std::cell::Cell;
 
-pub struct HeftScheduler {
+pub struct HeftOctScheduler {
     data_transfer_strategy: DataTransferStrategy,
     pub task_order: Cell<Vec<usize>>,
 }
 
-impl HeftScheduler {
+impl HeftOctScheduler {
     pub fn new() -> Self {
         Self {
             data_transfer_strategy: DataTransferStrategy::Eager,
@@ -35,14 +39,49 @@ impl HeftScheduler {
         }
     }
 
+    pub fn with_data_transfer_strategy(mut self, data_transfer_strategy: DataTransferStrategy) -> Self {
+        self.data_transfer_strategy = data_transfer_strategy;
+        self
+    }
+
     pub fn with_task_order(mut self, task_order: Vec<usize>) -> Self {
         self.task_order.set(task_order);
         self
     }
 
-    pub fn with_data_transfer_strategy(mut self, data_transfer_strategy: DataTransferStrategy) -> Self {
-        self.data_transfer_strategy = data_transfer_strategy;
-        self
+    fn calc_opt(&self, dag: &DAG, system: System, config: &Config, ctx: &SimulationContext) -> Vec<Vec<f64>> {
+        let resources = system.resources;
+        let network = system.network;
+
+        let task_count = dag.get_tasks().len();
+        // optimistic cost table
+        let mut oct = vec![vec![0.0; resources.len()]; task_count];
+        for task_id in topsort(dag).into_iter().rev() {
+            for resource_id in 0..resources.len() {
+                oct[task_id][resource_id] = task_successors(task_id, dag)
+                    .into_iter()
+                    .map(|(succ, weight)| {
+                        (0..resources.len())
+                            .map(|succ_resource| {
+                                oct[succ][succ_resource]
+                                    + dag.get_task(succ).flops / resources[succ_resource].speed
+                                    + weight * {
+                                        config.data_transfer_mode.net_time(
+                                            network,
+                                            resources[resource_id].id,
+                                            resources[succ_resource].id,
+                                            ctx.id(),
+                                        )
+                                    }
+                            })
+                            .min_by(|a, b| a.total_cmp(b))
+                            .unwrap()
+                    })
+                    .max_by(|a, b| a.total_cmp(b))
+                    .unwrap_or(0.);
+            }
+        }
+        oct
     }
 
     fn schedule(&self, dag: &DAG, system: System, config: Config, ctx: &SimulationContext) -> Vec<Action> {
@@ -56,6 +95,10 @@ impl HeftScheduler {
         let task_ranks = calc_ranks(system.avg_flop_time(), avg_net_time, dag);
         let mut task_ids = (0..task_count).collect::<Vec<_>>();
         task_ids.sort_by(|&a, &b| task_ranks[b].total_cmp(&task_ranks[a]));
+        // let task_ids = self.sort_tasks(dag, system, avg_net_time);
+        // task_ids = vec!;
+
+        let oct = self.calc_opt(dag, system, &config, ctx);
 
         if unsafe { (*self.task_order.as_ptr()).len() } == 0 {
             self.task_order.set(task_ids.clone());
@@ -78,6 +121,7 @@ impl HeftScheduler {
             let mut best_finish = -1.;
             let mut best_start = -1.;
             let mut best_resource = 0;
+            let mut best_oeft = -1.;
             let mut best_cores: Vec<u32> = Vec::new();
             for resource in 0..resources.len() {
                 let res = evaluate_assignment(
@@ -100,9 +144,12 @@ impl HeftScheduler {
                 }
                 let (start_time, finish_time, cores) = res.unwrap();
 
-                if best_finish == -1. || best_finish > finish_time {
+                let oeft = finish_time + oct[task_id][resource];
+
+                if best_oeft == -1. || best_oeft > oeft {
                     best_start = start_time;
                     best_finish = finish_time;
+                    best_oeft = oeft;
                     best_resource = resource;
                     best_cores = cores;
                 }
@@ -140,7 +187,7 @@ impl HeftScheduler {
     }
 }
 
-impl Scheduler for HeftScheduler {
+impl Scheduler for HeftOctScheduler {
     fn start(&mut self, dag: &DAG, system: System, config: Config, ctx: &SimulationContext) -> Vec<Action> {
         assert_ne!(
             config.data_transfer_mode,
@@ -158,16 +205,16 @@ impl Scheduler for HeftScheduler {
         self.schedule(dag, system, config, ctx)
     }
 
-    fn get_task_order(&self) -> Vec<usize> {
-        return self.task_order.take();
-    }
-
     fn is_static(&self) -> bool {
         true
     }
+
+    fn get_task_order(&self) -> Vec<usize> {
+        return self.task_order.take();
+    }
 }
 
-impl Default for HeftScheduler {
+impl Default for HeftOctScheduler {
     fn default() -> Self {
         Self::new()
     }
